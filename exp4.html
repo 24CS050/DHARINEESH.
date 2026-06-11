@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OTP Verification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            width: 350px;
+            box-shadow: 0 0 10px gray;
+            text-align: center;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: darkblue;
+        }
+
+        #result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>OTP Verification</h2>
+
+    <button onclick="generateOTP()">Generate OTP</button>
+
+    <p id="otpDisplay"></p>
+
+    <input type="text" id="userOTP" placeholder="Enter OTP">
+
+    <button onclick="verifyOTP()">Verify OTP</button>
+
+    <p id="result"></p>
+</div>
+
+<script>
+    let generatedOTP = "";
+
+    function generateOTP() {
+        generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+
+        // For demo purposes only
+        document.getElementById("otpDisplay").innerHTML =
+            "Generated OTP: " + generatedOTP;
+
+        document.getElementById("result").innerHTML = "";
+    }
+
+    function verifyOTP() {
+        let enteredOTP = document.getElementById("userOTP").value;
+
+        if (enteredOTP === generatedOTP) {
+            document.getElementById("result").style.color = "green";
+            document.getElementById("result").innerHTML =
+                "OTP Verified Successfully!";
+        } else {
+            document.getElementById("result").style.color = "red";
+            document.getElementById("result").innerHTML =
+                "Invalid OTP. Try Again!";
+        }
+    }
+</script>
+
+</body>
+</html>
