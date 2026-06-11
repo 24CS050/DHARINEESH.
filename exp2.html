@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login & Signup UI</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    background:#4facfe;
+}
+
+.container{
+    width:350px;
+    background:#fff;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+
+h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#4facfe;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#2196f3;
+}
+
+p{
+    text-align:center;
+    margin-top:15px;
+}
+
+a{
+    color:#4facfe;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+.form{
+    display:none;
+}
+
+.form.active{
+    display:block;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Login Form -->
+    <div class="form active" id="loginForm">
+        <h2>Login</h2>
+
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+
+        <button>Login</button>
+
+        <p>
+            Don't have an account?
+            <a onclick="showSignup()">Sign Up</a>
+        </p>
+    </div>
+
+    <!-- Signup Form -->
+    <div class="form" id="signupForm">
+        <h2>Sign Up</h2>
+
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+        <input type="password" placeholder="Confirm Password" required>
+
+        <button>Sign Up</button>
+
+        <p>
+            Already have an account?
+            <a onclick="showLogin()">Login</a>
+        </p>
+    </div>
+
+</div>
+
+<script>
+function showSignup(){
+    document.getElementById("loginForm").classList.remove("active");
+    document.getElementById("signupForm").classList.add("active");
+}
+
+function showLogin(){
+    document.getElementById("signupForm").classList.remove("active");
+    document.getElementById("loginForm").classList.add("active");
+}
+</script>
+
+</body>
+</html>
