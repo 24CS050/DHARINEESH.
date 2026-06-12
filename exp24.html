@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Responsive Mobile Layout</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background: #5008d6;
+    }
+
+    header {
+        background: #007bff;
+        color: rgb(25, 124, 186);
+        text-align: center;
+        padding: 15px;
+    }
+
+    nav {
+        background: #333;
+    }
+
+    nav ul {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+    }
+
+    nav ul li {
+        padding: 15px;
+    }
+
+    nav ul li a {
+        color: rgb(228, 9, 158);
+        text-decoration: none;
+    }
+
+    .container {
+        display: flex;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .content {
+        flex: 3;
+        background: rgb(12, 36, 194);
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .sidebar {
+        flex: 1;
+        background: rgb(72, 241, 5);
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    footer {
+        background: #3004f5;
+        color: rgb(230, 255, 9);
+        text-align: center;
+        padding: 15px;
+        margin-top: 20px;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+        nav ul {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .container {
+            flex-direction: column;
+        }
+
+        .content,
+        .sidebar {
+            width: 100%;
+        }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Responsive Mobile Layout</h1>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="content">
+        <h2>Main Content</h2>
+        <p>
+            This section contains the main content of the webpage.
+            The layout automatically adjusts for mobile screens.
+        </p>
+    </div>
+
+    <div class="sidebar">
+        <h2>Sidebar</h2>
+        <p>
+            Additional information appears here.
+        </p>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 Responsive Layout Demo</p>
+</footer>
+
+</body>
+</html>
