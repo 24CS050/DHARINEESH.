@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Animations Demo</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #06ebaa;
+    margin: 0;
+    padding: 20px;
+}
+
+h1{
+    color: #5807f9;
+}
+
+/* Bouncing Ball */
+.ball{
+    width: 80px;
+    height: 80px;
+    background: red;
+    border-radius: 50%;
+    margin: 40px auto;
+    animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce{
+    from{
+        transform: translateY(0);
+    }
+    to{
+        transform: translateY(200px);
+    }
+}
+
+/* Rotating Box */
+.box{
+    width: 100px;
+    height: 100px;
+    background: rgb(240, 126, 4);
+    margin: 60px auto;
+    animation: rotateBox 3s linear infinite;
+}
+
+@keyframes rotateBox{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+/* Animated Button */
+.btn{
+    padding: 12px 25px;
+    font-size: 18px;
+    border: none;
+    background: green;
+    color: rgb(119, 5, 240);
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.btn:hover{
+    background: darkgreen;
+    transform: scale(1.1);
+}
+</style>
+</head>
+<body>
+
+<h1>CSS Animation Examples</h1>
+
+<h2>Bouncing Ball</h2>
+<div class="ball"></div>
+
+<h2>Rotating Box</h2>
+<div class="box"></div>
+
+<h2>Animated Button</h2>
+<button class="btn">Hover Me</button>
+
+</body>
+</html>
