@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frontend Routing Example</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    margin:0;
+}
+
+nav{
+    background:#eb3b05;
+    padding:15px;
+}
+
+nav a{
+    color:rgb(5, 249, 33);
+    text-decoration:none;
+    margin-right:20px;
+    font-weight:bold;
+}
+
+#content{
+    padding:30px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+    <a href="#home" onclick="loadPage('home')">Home</a>
+    <a href="#about" onclick="loadPage('about')">About</a>
+    <a href="#contact" onclick="loadPage('contact')">Contact</a>
+</nav>
+
+<div id="content">
+    <h1>Welcome to Home Page</h1>
+    <p>This is the home page content.</p>
+</div>
+
+<script>
+function loadPage(page){
+
+    const content = document.getElementById("content");
+
+    if(page === "home"){
+        content.innerHTML = `
+            <h1>Home Page</h1>
+            <p>Welcome to our website.</p>
+        `;
+    }
+    else if(page === "about"){
+        content.innerHTML = `
+            <h1>About Us</h1>
+            <p>We provide web development services.</p>
+        `;
+    }
+    else if(page === "contact"){
+        content.innerHTML = `
+            <h1>Contact Us</h1>
+            <p>Email: info@example.com</p>
+        `;
+    }
+}
+</script>
+
+</body>
+</html>
