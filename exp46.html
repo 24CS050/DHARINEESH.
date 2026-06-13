@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Verification System</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            text-align:center;
+            margin-top:50px;
+        }
+
+        input{
+            padding:10px;
+            margin:10px;
+            width:250px;
+        }
+
+        button{
+            padding:10px 20px;
+            cursor:pointer;
+        }
+
+        #message{
+            margin-top:20px;
+            font-weight:bold;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Email Verification System</h2>
+
+<input type="email" id="email" placeholder="Enter Email">
+<br>
+
+<button onclick="sendCode()">Send Verification Code</button>
+
+<p id="showCode"></p>
+
+<input type="text" id="code" placeholder="Enter Verification Code">
+<br>
+
+<button onclick="verifyCode()">Verify</button>
+
+<p id="message"></p>
+
+<script>
+let generatedCode = "";
+
+function sendCode() {
+
+    const email = document.getElementById("email").value;
+
+    if(email === ""){
+        alert("Please enter an email address");
+        return;
+    }
+
+    generatedCode = Math.floor(
+        100000 + Math.random() * 900000
+    ).toString();
+
+    document.getElementById("showCode").innerHTML =
+        "Demo Verification Code: <b>" + generatedCode + "</b>";
+
+    document.getElementById("message").innerHTML =
+        "Verification code generated successfully!";
+}
+
+function verifyCode() {
+
+    const enteredCode =
+        document.getElementById("code").value;
+
+    if(enteredCode === generatedCode){
+        document.getElementById("message").innerHTML =
+            "✅ Email Verified Successfully!";
+    }
+    else{
+        document.getElementById("message").innerHTML =
+            "❌ Invalid Verification Code!";
+    }
+}
+</script>
+
+</body>
+</html>
