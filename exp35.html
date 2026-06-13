@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Role Based Access Control</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        select, button {
+            padding: 10px;
+            margin: 10px;
+        }
+
+        #content {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Role-Based Access Control Demo</h2>
+
+    <label>Select Role:</label>
+    <select id="role">
+        <option value="">Choose Role</option>
+        <option value="admin">Admin</option>
+        <option value="manager">Manager</option>
+        <option value="user">User</option>
+    </select>
+
+    <br>
+
+    <button onclick="checkAccess()">Login</button>
+
+    <div id="content"></div>
+
+    <script>
+        function checkAccess() {
+            let role = document.getElementById("role").value;
+            let output = document.getElementById("content");
+
+            if(role === "admin") {
+                output.innerHTML =
+                    "Welcome Admin! You can Manage Users, Products, and Reports.";
+            }
+            else if(role === "manager") {
+                output.innerHTML =
+                    "Welcome Manager! You can Manage Products and View Reports.";
+            }
+            else if(role === "user") {
+                output.innerHTML =
+                    "Welcome User! You can View Products only.";
+            }
+            else {
+                output.innerHTML =
+                    "Please select a role.";
+            }
+        }
+    </script>
+
+</body>
+</html>
