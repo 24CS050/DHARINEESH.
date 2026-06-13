@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+        }
+
+        #output {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>File Upload Functionality</h2>
+
+    <input type="file" id="fileInput">
+
+    <br>
+
+    <button onclick="uploadFile()">Upload File</button>
+
+    <div id="output"></div>
+
+    <script>
+        function uploadFile() {
+
+            const fileInput =
+                document.getElementById("fileInput");
+
+            if (fileInput.files.length === 0) {
+                document.getElementById("output").innerHTML =
+                    "Please select a file.";
+                return;
+            }
+
+            const file = fileInput.files[0];
+
+            document.getElementById("output").innerHTML =
+                "File Uploaded Successfully!<br><br>" +
+                "File Name: " + file.name + "<br>" +
+                "File Size: " + (file.size / 1024).toFixed(2) + " KB<br>" +
+                "File Type: " + file.type;
+        }
+    </script>
+
+</body>
+</html>
