@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Rate Limiting Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        #output {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>API Rate Limiting Demo</h2>
+
+<p>
+Maximum 5 API requests per minute
+</p>
+
+<button onclick="callAPI()">Call API</button>
+
+<div id="output"></div>
+
+<script>
+let requestCount = 0;
+const limit = 5;
+
+// Reset counter every minute
+setInterval(() => {
+    requestCount = 0;
+}, 60000);
+
+function callAPI() {
+    const output = document.getElementById("output");
+
+    if (requestCount >= limit) {
+        output.innerHTML =
+            "❌ Rate Limit Exceeded! Try again after 1 minute.";
+        return;
+    }
+
+    requestCount++;
+
+    output.innerHTML =
+        "✅ API Request Successful. Requests Used: " +
+        requestCount + " / " + limit;
+}
+</script>
+
+</body>
+</html>
