@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Django Backend System</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f4f4;
+    text-align:center;
+    padding:50px;
+}
+
+.container{
+    background:white;
+    max-width:600px;
+    margin:auto;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+button{
+    background:#28a745;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    font-size:16px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#218838;
+}
+
+#result{
+    margin-top:20px;
+    font-size:18px;
+    color:#333;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Django Backend System</h1>
+    <p>Click the button to simulate a response from a Django backend.</p>
+
+    <button onclick="loadData()">Get Data</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+function loadData() {
+    document.getElementById("result").innerHTML =
+    "<h3>Status: Success</h3><p>Django Backend System Running Successfully</p>";
+}
+</script>
+
+</body>
+</html>
