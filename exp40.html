@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Management</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input{
+            padding: 8px;
+            margin: 5px;
+        }
+        button{
+            padding: 8px 15px;
+        }
+        table{
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        table, th, td{
+            border: 1px solid black;
+        }
+        th, td{
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Student Management System</h2>
+
+<input type="text" id="name" placeholder="Enter Name">
+<input type="email" id="email" placeholder="Enter Email">
+<input type="text" id="course" placeholder="Enter Course">
+
+<button onclick="saveStudent()">Save</button>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Course</th>
+        </tr>
+    </thead>
+    <tbody id="studentTable"></tbody>
+</table>
+
+<script>
+function saveStudent() {
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let course = document.getElementById("course").value;
+
+    if(name === "" || email === "" || course === ""){
+        alert("Please fill all fields");
+        return;
+    }
+
+    let students = JSON.parse(localStorage.getItem("students")) || [];
+
+    students.push({
+        name: name,
+        email: email,
+        course: course
+    });
+
+    localStorage.setItem("students", JSON.stringify(students));
+
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("course").value = "";
+
+    displayStudents();
+}
+
+function displayStudents() {
+    let students = JSON.parse(localStorage.getItem("students")) || [];
+
+    let output = "";
+
+    students.forEach(student => {
+        output += `
+        <tr>
+            <td>${student.name}</td>
+            <td>${student.email}</td>
+            <td>${student.course}</td>
+        </tr>`;
+    });
+
+    document.getElementById("studentTable").innerHTML = output;
+}
+
+displayStudents();
+</script>
+
+</body>
+</html>
