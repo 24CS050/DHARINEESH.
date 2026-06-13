@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Centralized Error Handling</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: blue;
+        }
+
+        #error {
+            margin-top: 10px;
+            font-size: 18px;
+            color: rgb(24, 9, 235);
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Centralized Error Handling Demo</h2>
+
+    <button onclick="processData()">Run Program</button>
+
+    <div id="result"></div>
+    <div id="error"></div>
+
+    <script>
+
+        // Centralized Error Handler
+        function handleError(error) {
+            document.getElementById("error").innerHTML =
+                "Error: " + error.message;
+
+            console.error("Centralized Error:", error);
+        }
+
+        // Main Function
+        function processData() {
+            document.getElementById("result").innerHTML = "";
+            document.getElementById("error").innerHTML = "";
+
+            try {
+                let age = prompt("Enter your age:");
+
+                if (age === null || age === "") {
+                    throw new Error("Age cannot be empty.");
+                }
+
+                age = Number(age);
+
+                if (isNaN(age)) {
+                    throw new Error("Please enter a valid number.");
+                }
+
+                if (age < 18) {
+                    throw new Error("You must be at least 18 years old.");
+                }
+
+                document.getElementById("result").innerHTML =
+                    "Access Granted. Age: " + age;
+
+            } catch (error) {
+                handleError(error);
+            }
+        }
+
+    </script>
+
+</body>
+</html>
