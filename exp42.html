@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Middleware Demo</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        #output {
+            margin-top: 20px;
+            font-size: 18px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+<h2>API Middleware Simulation</h2>
+
+<button onclick="callAPI()">Call API</button>
+
+<p id="output"></p>
+
+<script>
+
+// Middleware Function
+function middleware(next) {
+    console.log("Middleware Executed");
+    next();
+}
+
+// API Function
+function api() {
+    document.getElementById("output").innerHTML =
+        "API Response: Middleware Working Successfully!";
+}
+
+// Call API Through Middleware
+function callAPI() {
+    middleware(api);
+}
+
+</script>
+
+</body>
+</html>
