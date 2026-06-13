@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Node.js Express Backend Dashboard</title>
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:Arial, sans-serif;
+    }
+
+    body{
+        background:#f4f4f4;
+    }
+
+    header{
+        background:#28a745;
+        color:white;
+        padding:20px;
+        text-align:center;
+    }
+
+    .container{
+        width:80%;
+        margin:30px auto;
+    }
+
+    .card{
+        background:white;
+        padding:20px;
+        margin-bottom:20px;
+        border-radius:10px;
+        box-shadow:0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    button{
+        background:#28a745;
+        color:white;
+        border:none;
+        padding:10px 20px;
+        cursor:pointer;
+        border-radius:5px;
+        margin-top:10px;
+    }
+
+    button:hover{
+        background:#218838;
+    }
+
+    table{
+        width:100%;
+        border-collapse:collapse;
+        margin-top:15px;
+    }
+
+    table, th, td{
+        border:1px solid #ddd;
+    }
+
+    th, td{
+        padding:10px;
+        text-align:left;
+    }
+
+    th{
+        background:#28a745;
+        color:white;
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Node.js Express Backend Dashboard</h1>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>Backend Status</h2>
+        <p id="status">Server Not Checked</p>
+        <button onclick="checkServer()">Check Server</button>
+    </div>
+
+    <div class="card">
+        <h2>User Data</h2>
+        <button onclick="loadUsers()">Load Users</button>
+
+        <table id="userTable" style="display:none;">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+function checkServer() {
+    document.getElementById("status").innerHTML =
+    "Server Running Successfully ✓";
+}
+
+function loadUsers() {
+
+    let users = [
+        {id:1, name:"John"},
+        {id:2, name:"Alice"},
+        {id:3, name:"David"}
+    ];
+
+    let tableBody = document.getElementById("tableBody");
+    tableBody.innerHTML = "";
+
+    users.forEach(user => {
+        tableBody.innerHTML += `
+        <tr>
+            <td>${user.id}</td>
+            <td>${user.name}</td>
+        </tr>`;
+    });
+
+    document.getElementById("userTable").style.display = "table";
+}
+</script>
+
+</body>
+</html>
