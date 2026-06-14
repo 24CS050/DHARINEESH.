@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analytics Dashboard</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f4f4;
+    margin:0;
+    padding:20px;
+}
+
+h1{
+    text-align:center;
+    color:#333;
+}
+
+.dashboard{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-top:20px;
+}
+
+.card{
+    background:rgb(12, 179, 235);
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(64, 252, 1, 0.816);
+    text-align:center;
+}
+
+.card h2{
+    margin:0;
+    color:#5c15f6;
+}
+
+.value{
+    font-size:32px;
+    color:#007bff;
+    margin-top:10px;
+    font-weight:bold;
+}
+
+table{
+    width:100%;
+    margin-top:30px;
+    border-collapse:collapse;
+    background:rgb(231, 8, 175);
+}
+
+th,td{
+    padding:12px;
+    border:1px solid #09ee64;
+    text-align:center;
+}
+
+th{
+    background:#007bff;
+    color:rgb(85, 8, 251);
+}
+</style>
+</head>
+
+<body>
+
+<h1>Analytics Dashboard</h1>
+
+<div class="dashboard">
+    <div class="card">
+        <h2>Total Users</h2>
+        <div class="value" id="users">0</div>
+    </div>
+
+    <div class="card">
+        <h2>Total Orders</h2>
+        <div class="value" id="orders">0</div>
+    </div>
+
+    <div class="card">
+        <h2>Total Products</h2>
+        <div class="value" id="products">0</div>
+    </div>
+
+    <div class="card">
+        <h2>Total Revenue</h2>
+        <div class="value" id="revenue">₹0</div>
+    </div>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Month</th>
+            <th>Sales</th>
+        </tr>
+    </thead>
+    <tbody id="salesTable">
+    </tbody>
+</table>
+
+<script>
+const dashboardData = {
+    totalUsers: 1250,
+    totalOrders: 450,
+    totalProducts: 320,
+    totalRevenue: 78500
+};
+
+const salesData = [
+    {month:"Jan", sales:12000},
+    {month:"Feb", sales:15000},
+    {month:"Mar", sales:18000},
+    {month:"Apr", sales:14000},
+    {month:"May", sales:19000},
+    {month:"Jun", sales:22000}
+];
+
+document.getElementById("users").textContent =
+dashboardData.totalUsers;
+
+document.getElementById("orders").textContent =
+dashboardData.totalOrders;
+
+document.getElementById("products").textContent =
+dashboardData.totalProducts;
+
+document.getElementById("revenue").textContent =
+"₹" + dashboardData.totalRevenue;
+
+const table = document.getElementById("salesTable");
+
+salesData.forEach(item => {
+    const row = `
+        <tr>
+            <td>${item.month}</td>
+            <td>₹${item.sales}</td>
+        </tr>
+    `;
+    table.innerHTML += row;
+});
+</script>
+
+</body>
+</html>
