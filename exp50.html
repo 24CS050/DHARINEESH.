@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notification System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #notification {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            padding: 16px;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+        }
+
+        #notification.show {
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Notification Demo</h1>
+
+    <button onclick="showNotification()">
+        Show Notification
+    </button>
+
+    <div id="notification">
+        Notification sent successfully!
+    </div>
+
+    <script>
+        function showNotification() {
+            let notification = document.getElementById("notification");
+
+            notification.classList.add("show");
+
+            setTimeout(function() {
+                notification.classList.remove("show");
+            }, 3000);
+        }
+    </script>
+
+</body>
+</html>
