@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Razorpay Working Demo</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <style>
+        body{
+            font-family: Arial;
+            text-align:center;
+            margin-top:100px;
+            background:#f5f5f5;
+        }
+
+        .card{
+            width:300px;
+            margin:auto;
+            padding:20px;
+            background:white;
+            box-shadow:0 0 10px #aaa;
+            border-radius:10px;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            background:#0a66c2;
+            color:white;
+            border:none;
+            font-size:16px;
+            cursor:pointer;
+            border-radius:5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>Pay ₹199</h2>
+    <button onclick="payNow()">Pay Now</button>
+</div>
+
+<script>
+function payNow(){
+
+    var options = {
+        key: "rzp_test_xxxxxxxxx",  // 🔴 PUT YOUR REAL KEY HERE
+        amount: 19900,
+        currency: "INR",
+        name: "Demo Store",
+        description: "Test Payment",
+
+        handler: function (response) {
+            alert(
+                "Payment Successful!\n\nPayment ID:\n" +
+                response.razorpay_payment_id
+            );
+        },
+
+        theme: {
+            color: "#0a66c2"
+        }
+    };
+
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+}
+</script>
+
+</body>
+</html>
