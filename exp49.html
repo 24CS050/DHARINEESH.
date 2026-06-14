@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cloud Storage Integration</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            text-align:center;
+            margin-top:50px;
+        }
+        .container{
+            width:400px;
+            margin:auto;
+            padding:20px;
+            border:1px solid #ccc;
+            border-radius:10px;
+        }
+        button{
+            padding:10px 20px;
+            background:#007bff;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+        }
+        button:hover{
+            background:#0056b3;
+        }
+        #message{
+            margin-top:15px;
+            color:green;
+            font-weight:bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Cloud Storage Integration</h2>
+
+    <input type="file" id="fileInput">
+    <br><br>
+
+    <button onclick="uploadFile()">Upload File</button>
+
+    <p id="message"></p>
+</div>
+
+<script>
+function uploadFile() {
+    const file = document.getElementById("fileInput").files[0];
+
+    if (!file) {
+        alert("Please select a file.");
+        return;
+    }
+
+    document.getElementById("message").innerHTML =
+        "File '" + file.name + "' selected successfully.<br>Ready for cloud upload.";
+}
+</script>
+
+</body>
+</html>
