@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search and Filter System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        input {
+            padding: 10px;
+            width: 300px;
+            margin-bottom: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid rgb(232, 228, 10);
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #0694ec;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Employee Search and Filter</h2>
+
+<input type="text" id="searchBox"
+       placeholder="Search by Name or Department"
+       onkeyup="searchData()">
+
+<table id="employeeTable">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Department</th>
+    </tr>
+
+    <tr>
+        <td>101</td>
+        <td>Dharineesh</td>
+        <td>IT</td>
+    </tr>
+
+    <tr>
+        <td>102</td>
+        <td>Arun</td>
+        <td>HR</td>
+    </tr>
+
+    <tr>
+        <td>103</td>
+        <td>Priya</td>
+        <td>Finance</td>
+    </tr>
+
+    <tr>
+        <td>104</td>
+        <td>Kumar</td>
+        <td>IT</td>
+    </tr>
+</table>
+
+<script>
+function searchData() {
+    let input =
+        document.getElementById("searchBox")
+        .value.toLowerCase();
+
+    let table =
+        document.getElementById("employeeTable");
+
+    let rows = table.getElementsByTagName("tr");
+
+    for (let i = 1; i < rows.length; i++) {
+
+        let name =
+            rows[i].cells[1].innerText.toLowerCase();
+
+        let dept =
+            rows[i].cells[2].innerText.toLowerCase();
+
+        if (name.includes(input) ||
+            dept.includes(input)) {
+            rows[i].style.display = "";
+        } else {
+            rows[i].style.display = "none";
+        }
+    }
+}
+</script>
+
+</body>
+</html>
