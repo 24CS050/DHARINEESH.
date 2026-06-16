@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pagination System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 30px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin: 5px auto;
+            width: 300px;
+        }
+
+        button {
+            padding: 8px 15px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Pagination Example</h2>
+
+<ul id="dataList"></ul>
+
+<button onclick="previousPage()">Previous</button>
+<button onclick="nextPage()">Next</button>
+
+<p id="pageInfo"></p>
+
+<script>
+const data = [];
+
+for(let i = 1; i <= 50; i++) {
+    data.push("Employee " + i);
+}
+
+const itemsPerPage = 5;
+let currentPage = 1;
+
+function displayData() {
+
+    const list = document.getElementById("dataList");
+    list.innerHTML = "";
+
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+
+    const pageItems = data.slice(start, end);
+
+    pageItems.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        list.appendChild(li);
+    });
+
+    document.getElementById("pageInfo").innerHTML =
+        "Page " + currentPage +
+        " of " + Math.ceil(data.length / itemsPerPage);
+}
+
+function nextPage() {
+    if(currentPage < Math.ceil(data.length / itemsPerPage)) {
+        currentPage++;
+        displayData();
+    }
+}
+
+function previousPage() {
+    if(currentPage > 1) {
+        currentPage--;
+        displayData();
+    }
+}
+
+displayData();
+</script>
+
+</body>
+</html>
