@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Location Search Map</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            text-align:center;
+            margin-top:50px;
+        }
+
+        input{
+            width:300px;
+            padding:10px;
+        }
+
+        button{
+            padding:10px 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Google Maps Location Search</h2>
+
+<input type="text"
+       id="location"
+       placeholder="Enter location">
+
+<button onclick="searchLocation()">
+    Search
+</button>
+
+<script>
+function searchLocation(){
+
+    let location =
+        document.getElementById("location").value;
+
+    if(location === ""){
+        alert("Please enter a location");
+        return;
+    }
+
+    let url =
+        "https://www.google.com/maps/search/?api=1&query="
+        + encodeURIComponent(location);
+
+    window.open(url, "_blank");
+}
+</script>
+
+</body>
+</html>
