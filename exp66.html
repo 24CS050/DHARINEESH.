@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>OpenAI Chatbot</title>
+<style>
+body{
+    font-family:Arial;
+    max-width:600px;
+    margin:auto;
+}
+#chat{
+    border:1px solid #ccc;
+    height:300px;
+    overflow:auto;
+    padding:10px;
+}
+input{
+    width:75%;
+    padding:10px;
+}
+button{
+    padding:10px;
+}
+</style>
+</head>
+<body>
+
+<h2>OpenAI Chatbot</h2>
+
+<div id="chat"></div>
+
+<input type="text" id="msg" placeholder="Type message">
+<button onclick="sendMessage()">Send</button>
+
+<script>
+async function sendMessage(){
+
+    const msg =
+        document.getElementById("msg").value;
+
+    if(!msg) return;
+
+    const chat =
+        document.getElementById("chat");
+
+    chat.innerHTML +=
+        "<p><b>You:</b> " + msg + "</p>";
+
+    const response = await fetch(
+        "http://localhost:3000/chat",
+        {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                message:msg
+            })
+        }
+    );
+
+    const data = await response.json();
+
+    chat.innerHTML +=
+        "<p><b>AI:</b> " +
+        data.reply +
+        "</p>";
+
+    document.getElementById("msg").value = "";
+}
+</script>
+
+</body>
+</html>
