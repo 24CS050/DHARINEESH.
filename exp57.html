@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invoice Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        #invoice {
+            border: 2px solid #333;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #333;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Invoice Generation System</h2>
+
+<label>Customer Name</label>
+<input type="text" id="customerName">
+
+<label>Product Name</label>
+<input type="text" id="productName">
+
+<label>Quantity</label>
+<input type="number" id="quantity">
+
+<label>Price (₹)</label>
+<input type="number" id="price">
+
+<button onclick="generateInvoice()">Generate Invoice</button>
+
+<div id="invoice">
+    <h2>INVOICE</h2>
+    <p><strong>Customer:</strong> <span id="cName"></span></p>
+
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+        <tr>
+            <td id="pName"></td>
+            <td id="qty"></td>
+            <td id="pPrice"></td>
+            <td id="total"></td>
+        </tr>
+    </table>
+
+    <h3>Grand Total: ₹<span id="grandTotal"></span></h3>
+</div>
+
+<script>
+function generateInvoice() {
+    let customer = document.getElementById("customerName").value;
+    let product = document.getElementById("productName").value;
+    let quantity = parseInt(document.getElementById("quantity").value);
+    let price = parseFloat(document.getElementById("price").value);
+
+    if (!customer || !product || !quantity || !price) {
+        alert("Please fill all fields");
+        return;
+    }
+
+    let total = quantity * price;
+
+    document.getElementById("cName").textContent = customer;
+    document.getElementById("pName").textContent = product;
+    document.getElementById("qty").textContent = quantity;
+    document.getElementById("pPrice").textContent = "₹" + price;
+    document.getElementById("total").textContent = "₹" + total;
+    document.getElementById("grandTotal").textContent = total;
+
+    document.getElementById("invoice").style.display = "block";
+}
+</script>
+
+</body>
+</html>
