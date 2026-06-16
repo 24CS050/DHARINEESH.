@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invoice PDF Export</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        input, button{
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+        }
+
+        #invoice{
+            border: 1px solid #000;
+            padding: 15px;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Invoice Generator with PDF Export</h2>
+
+<input type="text" id="customer" placeholder="Customer Name">
+
+<input type="text" id="product" placeholder="Product Name">
+
+<input type="number" id="quantity" placeholder="Quantity">
+
+<input type="number" id="price" placeholder="Price">
+
+<button onclick="generateInvoice()">Generate Invoice</button>
+
+<button onclick="downloadPDF()">Download PDF</button>
+
+<div id="invoice">
+    <h3>Invoice</h3>
+    <p id="invoiceData"></p>
+</div>
+
+<script>
+function generateInvoice() {
+
+    let customer = document.getElementById("customer").value;
+    let product = document.getElementById("product").value;
+    let quantity = Number(document.getElementById("quantity").value);
+    let price = Number(document.getElementById("price").value);
+
+    let total = quantity * price;
+
+    document.getElementById("invoiceData").innerHTML =
+        "Customer: " + customer + "<br>" +
+        "Product: " + product + "<br>" +
+        "Quantity: " + quantity + "<br>" +
+        "Price: ₹" + price + "<br>" +
+        "Total: ₹" + total;
+
+    document.getElementById("invoice").style.display = "block";
+}
+
+function downloadPDF() {
+
+    const { jsPDF } = window.jspdf;
+
+    let doc = new jsPDF();
+
+    let customer = document.getElementById("customer").value;
+    let product = document.getElementById("product").value;
+    let quantity = Number(document.getElementById("quantity").value);
+    let price = Number(document.getElementById("price").value);
+
+    let total = quantity * price;
+
+    doc.text("INVOICE", 20, 20);
+    doc.text("Customer: " + customer, 20, 40);
+    doc.text("Product: " + product, 20, 50);
+    doc.text("Quantity: " + quantity, 20, 60);
+    doc.text("Price: Rs." + price, 20, 70);
+    doc.text("Total: Rs." + total, 20, 80);
+
+    doc.save("invoice.pdf");
+}
+</script>
+
+</body>
+</html>
