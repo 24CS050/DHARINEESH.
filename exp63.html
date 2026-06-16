@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sorting Functionality</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        table {
+            width: 60%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        button {
+            padding: 8px 15px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Employee Sorting System</h2>
+
+<button onclick="sortByName()">Sort by Name</button>
+<button onclick="sortBySalary()">Sort by Salary</button>
+
+<table id="employeeTable">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Salary</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+const employees = [
+    { name: "Dharineesh", salary: 50000 },
+    { name: "Arun", salary: 45000 },
+    { name: "Priya", salary: 55000 },
+    { name: "Kumar", salary: 40000 }
+];
+
+function displayData() {
+    const tbody = document.querySelector("#employeeTable tbody");
+    tbody.innerHTML = "";
+
+    employees.forEach(emp => {
+        const row = `
+            <tr>
+                <td>${emp.name}</td>
+                <td>${emp.salary}</td>
+            </tr>
+        `;
+        tbody.innerHTML += row;
+    });
+}
+
+function sortByName() {
+    employees.sort((a, b) => a.name.localeCompare(b.name));
+    displayData();
+}
+
+function sortBySalary() {
+    employees.sort((a, b) => a.salary - b.salary);
+    displayData();
+}
+
+displayData();
+</script>
+
+</body>
+</html>
