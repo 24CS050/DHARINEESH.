@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Report Generation System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+            width: 200px;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 10px 5px;
+        }
+
+        #report {
+            margin-top: 20px;
+            border: 1px solid #000;
+            padding: 15px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Report Generation System</h2>
+
+<input type="text" id="name" placeholder="Employee Name"><br>
+
+<input type="number" id="tasks" placeholder="Tasks Completed"><br>
+
+<input type="number" id="hours" placeholder="Hours Worked"><br>
+
+<button onclick="generateReport()">Generate Report</button>
+
+<div id="report">
+    <h3>Employee Report</h3>
+    <p id="reportContent"></p>
+</div>
+
+<script>
+function generateReport() {
+
+    let name = document.getElementById("name").value;
+    let tasks = document.getElementById("tasks").value;
+    let hours = document.getElementById("hours").value;
+
+    if(name === "" || tasks === "" || hours === "") {
+        alert("Please fill all fields");
+        return;
+    }
+
+    document.getElementById("reportContent").innerHTML =
+        "<b>Name:</b> " + name + "<br>" +
+        "<b>Tasks Completed:</b> " + tasks + "<br>" +
+        "<b>Hours Worked:</b> " + hours + "<br>" +
+        "<b>Status:</b> Report Generated Successfully";
+
+    document.getElementById("report").style.display = "block";
+}
+</script>
+
+</body>
+</html>
