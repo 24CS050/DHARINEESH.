@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Excel Export Module</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+        }
+
+        button {
+            padding: 8px 15px;
+            margin: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #000;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Excel Export Module</h2>
+
+<input type="text" id="id" placeholder="Employee ID">
+<input type="text" id="name" placeholder="Employee Name">
+<input type="text" id="department" placeholder="Department">
+<input type="number" id="salary" placeholder="Salary">
+
+<button onclick="addRecord()">Add Record</button>
+<button onclick="exportExcel()">Export Excel</button>
+
+<table id="employeeTable">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Salary</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+function addRecord() {
+    let id = document.getElementById("id").value;
+    let name = document.getElementById("name").value;
+    let department = document.getElementById("department").value;
+    let salary = document.getElementById("salary").value;
+
+    if(id === "" || name === "" || department === "" || salary === "") {
+        alert("Please fill all fields");
+        return;
+    }
+
+    let table = document
+        .getElementById("employeeTable")
+        .getElementsByTagName("tbody")[0];
+
+    let row = table.insertRow();
+
+    row.insertCell(0).innerHTML = id;
+    row.insertCell(1).innerHTML = name;
+    row.insertCell(2).innerHTML = department;
+    row.insertCell(3).innerHTML = salary;
+
+    document.getElementById("id").value = "";
+    document.getElementById("name").value = "";
+    document.getElementById("department").value = "";
+    document.getElementById("salary").value = "";
+}
+
+function exportExcel() {
+    let table = document.getElementById("employeeTable");
+
+    let html = table.outerHTML;
+
+    let url = 'data:application/vnd.ms-excel,' +
+              encodeURIComponent(html);
+
+    let downloadLink = document.createElement("a");
+
+    downloadLink.href = url;
+    downloadLink.download = "Employee_Report.xls";
+
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+}
+</script>
+
+</body>
+</html>
