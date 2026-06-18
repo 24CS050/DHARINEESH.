@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Firebase Integration Demo</title>
+<style>
+body{
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+}
+input{
+    width: 70%;
+    padding: 10px;
+}
+button{
+    padding: 10px 15px;
+}
+ul{
+    padding: 0;
+}
+li{
+    list-style: none;
+    background: #f4f4f4;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+</style>
+</head>
+<body>
+
+<h2>Data Storage Demo</h2>
+
+<input type="text" id="message" placeholder="Enter message">
+<button onclick="saveData()">Save</button>
+
+<h3>Saved Messages</h3>
+<ul id="list"></ul>
+
+<script>
+function loadData() {
+    const data = JSON.parse(localStorage.getItem("messages")) || [];
+    const list = document.getElementById("list");
+
+    list.innerHTML = "";
+
+    data.forEach(function(item) {
+        const li = document.createElement("li");
+        li.textContent = item;
+        list.appendChild(li);
+    });
+}
+
+function saveData() {
+    const input = document.getElementById("message");
+    const text = input.value.trim();
+
+    if(text === "") {
+        alert("Please enter a message");
+        return;
+    }
+
+    const data = JSON.parse(localStorage.getItem("messages")) || [];
+    data.push(text);
+
+    localStorage.setItem("messages", JSON.stringify(data));
+
+    input.value = "";
+    loadData();
+}
+
+loadData();
+</script>
+
+</body>
+</html>
