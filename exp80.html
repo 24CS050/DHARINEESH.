@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VPS Deployment Simulator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 700px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    button {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    button:hover {
+        background-color: #218838;
+    }
+
+    #log {
+        margin-top: 20px;
+        text-align: left;
+        background: #222;
+        color: #0f0;
+        padding: 15px;
+        border-radius: 5px;
+        min-height: 180px;
+        white-space: pre-line;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Deploy Application on VPS</h1>
+
+    <p>Click the button to simulate a VPS deployment process.</p>
+
+    <button onclick="deployApp()">Deploy Application</button>
+
+    <div id="log">Waiting for deployment...</div>
+</div>
+
+<script>
+function deployApp() {
+    const log = document.getElementById("log");
+
+    log.innerHTML = "Connecting to VPS...\n";
+
+    setTimeout(() => {
+        log.innerHTML += "✓ Connected to VPS\n";
+    }, 1000);
+
+    setTimeout(() => {
+        log.innerHTML += "✓ Pulling latest code from GitHub\n";
+    }, 2000);
+
+    setTimeout(() => {
+        log.innerHTML += "✓ Installing dependencies\n";
+    }, 3000);
+
+    setTimeout(() => {
+        log.innerHTML += "✓ Building application\n";
+    }, 4000);
+
+    setTimeout(() => {
+        log.innerHTML += "✓ Restarting server\n";
+    }, 5000);
+
+    setTimeout(() => {
+        log.innerHTML += "\n🚀 Application deployed successfully on VPS!";
+    }, 6000);
+}
+</script>
+
+</body>
+</html>
