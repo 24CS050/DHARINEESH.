@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cron Job Scheduler</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: #f4f4f4;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 700px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #ccc;
+    }
+
+    button {
+        padding: 10px 20px;
+        background: #2196F3;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #log {
+        margin-top: 20px;
+        text-align: left;
+        background: #222;
+        color: #00ff00;
+        padding: 15px;
+        border-radius: 5px;
+        min-height: 200px;
+        white-space: pre-line;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Cron Job Scheduling Simulator</h1>
+
+    <p>Click the button to start a scheduled task.</p>
+
+    <button onclick="startCronJob()">Start Cron Job</button>
+
+    <div id="log">Waiting for cron job...</div>
+</div>
+
+<script>
+let counter = 0;
+let intervalId;
+
+function startCronJob() {
+    const log = document.getElementById("log");
+
+    if (intervalId) {
+        clearInterval(intervalId);
+    }
+
+    counter = 0;
+    log.innerHTML = "Cron Job Started...\n";
+
+    intervalId = setInterval(() => {
+        counter++;
+
+        const time = new Date().toLocaleTimeString();
+
+        log.innerHTML +=
+            "✓ Task executed at: " + time + "\n";
+
+        if (counter >= 5) {
+            clearInterval(intervalId);
+            log.innerHTML +=
+                "\n✅ Cron Job Completed (5 executions)";
+        }
+    }, 2000);
+}
+</script>
+
+</body>
+</html>
