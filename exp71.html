@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cache Demo</title>
+</head>
+<body>
+    <h2>Simple Cache Example</h2>
+
+    <button onclick="loadData()">Load Data</button>
+
+    <p id="output"></p>
+
+    <script>
+        function loadData() {
+            let cachedData = localStorage.getItem("userData");
+
+            if (cachedData) {
+                document.getElementById("output").innerHTML =
+                    "Loaded from Cache:<br>" + cachedData;
+                return;
+            }
+
+            let data = {
+                name: "John Doe",
+                time: new Date().toLocaleString()
+            };
+
+            localStorage.setItem("userData", JSON.stringify(data));
+
+            document.getElementById("output").innerHTML =
+                "Fresh Data Stored:<br>" +
+                JSON.stringify(data);
+        }
+    </script>
+</body>
+</html>
