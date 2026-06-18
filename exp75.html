@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Unit Testing Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .pass {
+            color: green;
+        }
+        .fail {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<h2>JavaScript Unit Testing Example</h2>
+
+<button onclick="runTests()">Run Tests</button>
+
+<div id="results"></div>
+
+<script>
+    // Function to test
+    function add(a, b) {
+        return a + b;
+    }
+
+    function multiply(a, b) {
+        return a * b;
+    }
+
+    // Simple test function
+    function test(testName, expected, actual) {
+        const resultDiv = document.getElementById("results");
+
+        if (expected === actual) {
+            resultDiv.innerHTML +=
+                "<p class='pass'>✔ " + testName + " PASSED</p>";
+        } else {
+            resultDiv.innerHTML +=
+                "<p class='fail'>✘ " + testName +
+                " FAILED (Expected: " + expected +
+                ", Actual: " + actual + ")</p>";
+        }
+    }
+
+    function runTests() {
+        document.getElementById("results").innerHTML = "";
+
+        test("Addition Test 1", 5, add(2, 3));
+        test("Addition Test 2", 10, add(4, 6));
+        test("Multiplication Test 1", 12, multiply(3, 4));
+        test("Multiplication Test 2", 25, multiply(5, 5));
+    }
+</script>
+
+</body>
+</html>
