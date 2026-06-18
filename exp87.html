@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logging System</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 700px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #ccc;
+    }
+
+    button {
+        padding: 10px 20px;
+        margin: 5px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .info {
+        background: #2196F3;
+        color: white;
+    }
+
+    .warning {
+        background: #ff9800;
+        color: white;
+    }
+
+    .error {
+        background: #f44336;
+        color: white;
+    }
+
+    #logs {
+        margin-top: 20px;
+        text-align: left;
+        background: #222;
+        color: #00ff00;
+        padding: 15px;
+        border-radius: 5px;
+        min-height: 200px;
+        overflow-y: auto;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Logging System Demo</h1>
+
+    <button class="info" onclick="addLog('INFO')">
+        Add Info Log
+    </button>
+
+    <button class="warning" onclick="addLog('WARNING')">
+        Add Warning Log
+    </button>
+
+    <button class="error" onclick="addLog('ERROR')">
+        Add Error Log
+    </button>
+
+    <div id="logs">System Logs:\n</div>
+</div>
+
+<script>
+function addLog(type) {
+    const logBox = document.getElementById("logs");
+    const time = new Date().toLocaleTimeString();
+
+    let message = "";
+
+    if (type === "INFO") {
+        message = `[${time}] INFO: Application started`;
+    } else if (type === "WARNING") {
+        message = `[${time}] WARNING: High memory usage detected`;
+    } else {
+        message = `[${time}] ERROR: Failed to connect to server`;
+    }
+
+    logBox.innerHTML += "<br>" + message;
+}
+</script>
+
+</body>
+</html>
