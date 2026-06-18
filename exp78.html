@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CI/CD Pipeline Simulator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f0f2f5;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 700px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    .pipeline-step {
+        margin: 10px 0;
+        padding: 15px;
+        border-radius: 5px;
+        background-color: #e0e0e0;
+    }
+
+    .active {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        background-color: #2196F3;
+        color: white;
+        border-radius: 5px;
+    }
+
+    #status {
+        margin-top: 20px;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>CI/CD Pipeline Simulator</h1>
+
+    <div id="code" class="pipeline-step">1. Code Commit</div>
+    <div id="build" class="pipeline-step">2. Build Application</div>
+    <div id="test" class="pipeline-step">3. Run Tests</div>
+    <div id="deploy" class="pipeline-step">4. Deploy Application</div>
+
+    <button onclick="startPipeline()">Start Pipeline</button>
+
+    <div id="status"></div>
+</div>
+
+<script>
+function startPipeline() {
+    const steps = ["code", "build", "test", "deploy"];
+    
+    steps.forEach(step => {
+        document.getElementById(step).classList.remove("active");
+    });
+
+    document.getElementById("status").innerHTML = "Pipeline Started...";
+
+    steps.forEach((step, index) => {
+        setTimeout(() => {
+            document.getElementById(step).classList.add("active");
+
+            if(index === steps.length - 1){
+                document.getElementById("status").innerHTML =
+                "✅ CI/CD Pipeline Completed Successfully!";
+            }
+        }, (index + 1) * 1000);
+    });
+}
+</script>
+
+</body>
+</html>
