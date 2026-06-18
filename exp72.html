@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Session Management Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Session Management Example</h2>
+
+    <input type="text" id="username" placeholder="Enter Username">
+    <button onclick="login()">Login</button>
+    <button onclick="logout()">Logout</button>
+
+    <h3 id="message"></h3>
+
+    <script>
+        function login() {
+            let username = document.getElementById("username").value;
+
+            if (username === "") {
+                alert("Please enter a username");
+                return;
+            }
+
+            sessionStorage.setItem("username", username);
+            showUser();
+        }
+
+        function logout() {
+            sessionStorage.removeItem("username");
+            document.getElementById("message").innerHTML =
+                "You are logged out.";
+        }
+
+        function showUser() {
+            let username = sessionStorage.getItem("username");
+
+            if (username) {
+                document.getElementById("message").innerHTML =
+                    "Welcome, " + username + "!";
+            } else {
+                document.getElementById("message").innerHTML =
+                    "No active session.";
+            }
+        }
+
+        showUser();
+    </script>
+
+</body>
+</html>
