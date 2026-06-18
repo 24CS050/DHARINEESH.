@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Microservices Basics</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: #f4f4f4;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #ccc;
+    }
+
+    .service {
+        display: inline-block;
+        width: 180px;
+        margin: 10px;
+        padding: 15px;
+        color: white;
+        border-radius: 8px;
+        background: #2196F3;
+    }
+
+    button {
+        padding: 10px 20px;
+        margin-top: 20px;
+        border: none;
+        border-radius: 5px;
+        background: #4CAF50;
+        color: white;
+        cursor: pointer;
+    }
+
+    #output {
+        margin-top: 20px;
+        font-weight: bold;
+        color: green;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Microservices Architecture</h1>
+
+    <div class="service">API Gateway</div>
+    <br>
+
+    <div class="service">User Service</div>
+    <div class="service">Product Service</div>
+    <div class="service">Order Service</div>
+    <div class="service">Payment Service</div>
+
+    <br>
+
+    <button onclick="runServices()">Start Services</button>
+
+    <p id="output"></p>
+</div>
+
+<script>
+function runServices() {
+    document.getElementById("output").innerHTML =
+    "✅ API Gateway, User, Product, Order and Payment Services are running successfully!";
+}
+</script>
+
+</body>
+</html>
