@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vue.js Counter App</title>
+
+    <!-- Vue.js CDN -->
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+        }
+
+        h1 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <h1>Vue.js Counter Application</h1>
+
+    <h2>Count: {{ count }}</h2>
+
+    <button @click="count++">Increment</button>
+    <button @click="count--">Decrement</button>
+
+    <button @click="resetCount">Reset</button>
+</div>
+
+<script>
+const { createApp } = Vue;
+
+createApp({
+    data() {
+        return {
+            count: 0
+        };
+    },
+    methods: {
+        resetCount() {
+            this.count = 0;
+        }
+    }
+}).mount('#app');
+</script>
+
+</body>
+</html>
