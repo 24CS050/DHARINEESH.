@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Integration Testing Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .pass {
+            color: green;
+            font-weight: bold;
+        }
+        .fail {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Integration Testing Example</h2>
+
+<button onclick="runIntegrationTest()">Run Integration Test</button>
+
+<div id="result"></div>
+
+<script>
+    // Module 1: Calculate total
+    function calculateTotal(price, quantity) {
+        return price * quantity;
+    }
+
+    // Module 2: Apply discount
+    function applyDiscount(total) {
+        return total >= 1000 ? total * 0.9 : total;
+    }
+
+    // Integration test
+    function runIntegrationTest() {
+        const resultDiv = document.getElementById("result");
+
+        const total = calculateTotal(200, 5); // 1000
+        const finalAmount = applyDiscount(total); // 900
+
+        if (finalAmount === 900) {
+            resultDiv.innerHTML =
+                "<p class='pass'>✔ Integration Test Passed</p>" +
+                "<p>Total = ₹1000</p>" +
+                "<p>Discounted Amount = ₹900</p>";
+        } else {
+            resultDiv.innerHTML =
+                "<p class='fail'>✘ Integration Test Failed</p>";
+        }
+    }
+</script>
+
+</body>
+</html>
