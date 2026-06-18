@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AWS Deployment Simulator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f7fa;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+        color: #ff9900;
+    }
+
+    button {
+        background: #ff9900;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    button:hover {
+        opacity: 0.9;
+    }
+
+    #logs {
+        margin-top: 20px;
+        text-align: left;
+        background: #222;
+        color: #00ff00;
+        padding: 15px;
+        border-radius: 5px;
+        min-height: 220px;
+        white-space: pre-line;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>AWS Deployment Simulator</h1>
+
+    <p>Simulates deploying an application to AWS EC2.</p>
+
+    <button onclick="deployAWS()">Start AWS Deployment</button>
+
+    <div id="logs">Ready for deployment...</div>
+</div>
+
+<script>
+function deployAWS() {
+    const logs = document.getElementById("logs");
+
+    logs.innerHTML = "Initializing deployment...\n";
+
+    const steps = [
+        "Connecting to AWS EC2 Instance...",
+        "Uploading application files...",
+        "Installing dependencies...",
+        "Configuring environment variables...",
+        "Starting application service...",
+        "Verifying deployment status...",
+        "Deployment completed successfully!"
+    ];
+
+    steps.forEach((step, index) => {
+        setTimeout(() => {
+            logs.innerHTML += "✓ " + step + "\n";
+
+            if(index === steps.length - 1){
+                logs.innerHTML += "\n🚀 Application is live on AWS!";
+            }
+        }, (index + 1) * 1000);
+    });
+}
+</script>
+
+</body>
+</html>
