@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub Actions Workflow Generator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    button {
+        background: #28a745;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    button:hover {
+        background: #218838;
+    }
+
+    pre {
+        background: #272822;
+        color: #f8f8f2;
+        padding: 15px;
+        border-radius: 5px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>GitHub Actions Workflow Generator</h1>
+
+    <p>Click the button to generate a sample GitHub Actions workflow.</p>
+
+    <button onclick="generateWorkflow()">
+        Generate Workflow
+    </button>
+
+    <h3>Workflow File (.github/workflows/main.yml)</h3>
+    <pre id="output"></pre>
+</div>
+
+<script>
+function generateWorkflow() {
+
+const workflow = `name: Node.js CI
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Run Tests
+      run: npm test
+
+    - name: Build Project
+      run: npm run build`;
+
+document.getElementById("output").textContent = workflow;
+}
+</script>
+
+</body>
+</html>
