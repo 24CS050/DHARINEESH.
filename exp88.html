@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monitoring System</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #ccc;
+    }
+
+    .card {
+        display: inline-block;
+        width: 200px;
+        margin: 10px;
+        padding: 15px;
+        background: #2196F3;
+        color: white;
+        border-radius: 8px;
+    }
+
+    .status {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    button {
+        padding: 10px 20px;
+        margin-top: 20px;
+        border: none;
+        background: #4CAF50;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #log {
+        margin-top: 20px;
+        text-align: left;
+        background: #222;
+        color: #00ff00;
+        padding: 15px;
+        border-radius: 5px;
+        min-height: 150px;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>System Monitoring Dashboard</h1>
+
+    <div class="card">
+        <h3>CPU Usage</h3>
+        <div class="status" id="cpu">0%</div>
+    </div>
+
+    <div class="card">
+        <h3>Memory Usage</h3>
+        <div class="status" id="memory">0%</div>
+    </div>
+
+    <div class="card">
+        <h3>Server Status</h3>
+        <div class="status" id="server">ONLINE</div>
+    </div>
+
+    <br>
+
+    <button onclick="startMonitoring()">
+        Start Monitoring
+    </button>
+
+    <div id="log">Monitoring logs will appear here...</div>
+</div>
+
+<script>
+let monitorInterval;
+
+function startMonitoring() {
+
+    clearInterval(monitorInterval);
+
+    const log = document.getElementById("log");
+    log.innerHTML = "Monitoring Started...<br>";
+
+    monitorInterval = setInterval(() => {
+
+        const cpu = Math.floor(Math.random() * 100);
+        const memory = Math.floor(Math.random() * 100);
+
+        document.getElementById("cpu").innerText = cpu + "%";
+        document.getElementById("memory").innerText = memory + "%";
+
+        const time = new Date().toLocaleTimeString();
+
+        log.innerHTML +=
+            "[" + time + "] CPU: " + cpu +
+            "% | Memory: " + memory + "%<br>";
+
+        log.scrollTop = log.scrollHeight;
+
+    }, 2000);
+}
+</script>
+
+</body>
+</html>
