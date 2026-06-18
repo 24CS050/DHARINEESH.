@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Docker Containerization Demo</title>
+<style>
+    body{
+        font-family: Arial, sans-serif;
+        background:#f4f4f4;
+        margin:0;
+        padding:20px;
+    }
+    .container{
+        max-width:800px;
+        margin:auto;
+        background:white;
+        padding:20px;
+        border-radius:10px;
+        box-shadow:0 0 10px rgba(0,0,0,0.1);
+    }
+    h1{
+        color:#0078d7;
+    }
+    pre{
+        background:#272822;
+        color:white;
+        padding:10px;
+        border-radius:5px;
+        overflow:auto;
+    }
+    button{
+        background:#0078d7;
+        color:white;
+        border:none;
+        padding:10px 20px;
+        border-radius:5px;
+        cursor:pointer;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Docker Containerization</h1>
+
+    <p>Docker allows applications to run inside lightweight containers.</p>
+
+    <h2>Dockerfile Example</h2>
+    <pre>
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY . .
+
+RUN npm install
+
+EXPOSE 3000
+
+CMD ["npm","start"]
+    </pre>
+
+    <button onclick="showMessage()">Check Status</button>
+
+    <p id="output"></p>
+</div>
+
+<script>
+function showMessage(){
+    document.getElementById("output").innerHTML =
+    "✅ Docker containerization setup example loaded successfully!";
+}
+</script>
+
+</body>
+</html>
