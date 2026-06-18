@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scalable Architecture</title>
+<style>
+    body{
+        font-family: Arial, sans-serif;
+        text-align:center;
+        background:#f4f4f4;
+    }
+
+    .container{
+        width:90%;
+        margin:auto;
+        margin-top:20px;
+    }
+
+    .box{
+        display:inline-block;
+        padding:15px 25px;
+        margin:10px;
+        background:#4CAF50;
+        color:white;
+        border-radius:8px;
+        font-weight:bold;
+    }
+
+    .arrow{
+        font-size:30px;
+        margin:10px;
+    }
+
+    button{
+        padding:10px 20px;
+        background:#2196F3;
+        color:white;
+        border:none;
+        border-radius:5px;
+        cursor:pointer;
+    }
+
+    #output{
+        margin-top:20px;
+        font-size:18px;
+        color:green;
+        font-weight:bold;
+    }
+</style>
+</head>
+<body>
+
+<h1>Scalable Web Application Architecture</h1>
+
+<div class="container">
+
+    <div class="box">Users</div>
+    <div class="arrow">↓</div><br>
+
+    <div class="box">Load Balancer</div>
+    <div class="arrow">↓</div><br>
+
+    <div class="box">Web Server 1</div>
+    <div class="box">Web Server 2</div>
+    <div class="box">Web Server 3</div>
+
+    <div class="arrow">↓</div><br>
+
+    <div class="box">Application Layer</div>
+
+    <div class="arrow">↓</div><br>
+
+    <div class="box">Redis Cache</div>
+
+    <div class="arrow">↓</div><br>
+
+    <div class="box">Database Cluster</div>
+
+</div>
+
+<br>
+
+<button onclick="deploy()">Deploy Architecture</button>
+
+<p id="output"></p>
+
+<script>
+function deploy(){
+    document.getElementById("output").innerHTML =
+    "✅ Scalable Architecture Created Successfully!";
+}
+</script>
+
+</body>
+</html>
