@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Documentation</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background:#f4f4f4;
+        }
+        .api{
+            background:white;
+            padding:15px;
+            margin-bottom:15px;
+            border-radius:8px;
+            box-shadow:0 0 5px rgba(0,0,0,0.2);
+        }
+        .method{
+            color:white;
+            background:green;
+            padding:5px 10px;
+            border-radius:4px;
+            display:inline-block;
+        }
+        pre{
+            background:#eee;
+            padding:10px;
+            overflow:auto;
+        }
+    </style>
+</head>
+<body>
+
+<h1>API Documentation</h1>
+
+<div class="api">
+    <span class="method">GET</span>
+    <h3>/users</h3>
+    <p>Returns all users.</p>
+
+    <h4>Response</h4>
+    <pre>
+[
+  {
+    "id":1,
+    "name":"John"
+  },
+  {
+    "id":2,
+    "name":"Alice"
+  }
+]
+    </pre>
+</div>
+
+<div class="api">
+    <span class="method">POST</span>
+    <h3>/users</h3>
+    <p>Create a new user.</p>
+
+    <h4>Request Body</h4>
+    <pre>
+{
+  "name":"John"
+}
+    </pre>
+
+    <h4>Response</h4>
+    <pre>
+{
+  "message":"User created successfully"
+}
+    </pre>
+</div>
+
+<div class="api">
+    <span class="method">DELETE</span>
+    <h3>/users/{id}</h3>
+    <p>Delete a user by ID.</p>
+
+    <h4>Response</h4>
+    <pre>
+{
+  "message":"User deleted successfully"
+}
+    </pre>
+</div>
+
+</body>
+</html>
