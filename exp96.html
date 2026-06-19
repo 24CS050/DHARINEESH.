@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inventory Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #2cfb03;
+        }
+
+        .container {
+            background: rgb(241, 4, 143);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #39f813;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: #2f04eb;
+        }
+
+        .summary {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Inventory Manager</h2>
+
+    <input type="text" id="product" placeholder="Product Name">
+    <input type="number" id="quantity" placeholder="Quantity">
+    <input type="number" id="price" placeholder="Unit Price">
+    <button onclick="addItem()">Add Item</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="inventoryBody"></tbody>
+    </table>
+
+    <div class="summary" id="inventoryValue">
+        Total Inventory Value: ₹0
+    </div>
+</div>
+
+<script>
+let inventory =
+JSON.parse(localStorage.getItem("inventory")) || [];
+
+function saveData() {
+    localStorage.setItem(
+        "inventory",
+        JSON.stringify(inventory)
+    );
+}
+
+function addItem() {
+    const product =
+        document.getElementById("product").value.trim();
+
+    const quantity =
+        parseInt(document.getElementById("quantity").value);
+
+    const price =
+        parseFloat(document.getElementById("price").value);
+
+    if (!product || isNaN(quantity) || isNaN(price)) {
+        alert("Enter valid details");
+        return;
+    }
+
+    inventory.push({
+        product,
+        quantity,
+        price
+    });
+
+    saveData();
+    displayItems();
+
+    document.getElementById("product").value = "";
+    document.getElementById("quantity").value = "";
+    document.getElementById("price").value = "";
+}
+
+function displayItems() {
+    const body =
+        document.getElementById("inventoryBody");
+
+    body.innerHTML = "";
+
+    let totalInventoryValue = 0;
+
+    inventory.forEach((item, index) => {
+
+        const total =
+            item.quantity * item.price;
+
+        totalInventoryValue += total;
+
+        const status =
+            item.quantity > 0
+            ? "In Stock"
+            : "Out of Stock";
+
+        body.innerHTML += `
+        <tr>
+            <td>${item.product}</td>
+            <td>${item.quantity}</td>
+            <td>₹${item.price}</td>
+            <td>₹${total}</td>
+            <td>${status}</td>
+            <td>
+                <button onclick="editItem(${index})">
+                    Edit
+                </button>
+                <button onclick="deleteItem(${index})">
+                    Delete
+                </button>
+            </td>
+        </tr>`;
+    });
+
+    document.getElementById("inventoryValue")
+        .innerText =
+        "Total Inventory Value: ₹" +
+        totalInventoryValue.toFixed(2);
+}
+
+function editItem(index) {
+    let qty = prompt(
+        "Enter New Quantity",
+        inventory[index].quantity
+    );
+
+    if (qty !== null) {
+        inventory[index].quantity =
+            parseInt(qty);
+
+        saveData();
+        displayItems();
+    }
+}
+
+function deleteItem(index) {
+    if (confirm("Delete this item?")) {
+        inventory.splice(index, 1);
+        saveData();
+        displayItems();
+    }
+}
+
+displayItems();
+</script>
+
+</body>
+</html>
