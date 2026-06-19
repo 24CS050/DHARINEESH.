@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Real-Time Project Management App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input, select, button {
+            padding: 10px;
+            margin: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: #f0f0f0;
+        }
+
+        .completed {
+            color: green;
+            font-weight: bold;
+        }
+
+        .progress {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .pending {
+            color: red;
+            font-weight: bold;
+        }
+
+        progress {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Project Management Dashboard</h2>
+
+    <input type="text" id="projectName" placeholder="Project Name">
+
+    <select id="status">
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+    </select>
+
+    <input type="number" id="progressValue"
+           placeholder="Progress %" min="0" max="100">
+
+    <button onclick="addProject()">Add Project</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Project ID</th>
+                <th>Project Name</th>
+                <th>Status</th>
+                <th>Progress</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="projectTable"></tbody>
+    </table>
+</div>
+
+<script>
+let projects =
+JSON.parse(localStorage.getItem("projects")) || [];
+
+function saveProjects() {
+    localStorage.setItem(
+        "projects",
+        JSON.stringify(projects)
+    );
+}
+
+function addProject() {
+    const name =
+        document.getElementById("projectName").value.trim();
+
+    const status =
+        document.getElementById("status").value;
+
+    const progress =
+        parseInt(
+            document.getElementById("progressValue").value
+        );
+
+    if (!name || isNaN(progress)) {
+        alert("Please enter valid details.");
+        return;
+    }
+
+    projects.push({
+        id: Date.now(),
+        name,
+        status,
+        progress
+    });
+
+    saveProjects();
+    displayProjects();
+
+    document.getElementById("projectName").value = "";
+    document.getElementById("progressValue").value = "";
+}
+
+function displayProjects() {
+    const table =
+        document.getElementById("projectTable");
+
+    table.innerHTML = "";
+
+    projects.forEach((project, index) => {
+
+        let statusClass = "pending";
+
+        if (project.status === "Completed") {
+            statusClass = "completed";
+        } else if (project.status === "In Progress") {
+            statusClass = "progress";
+        }
+
+        table.innerHTML += `
+        <tr>
+            <td>${project.id}</td>
+            <td>${project.name}</td>
+            <td class="${statusClass}">
+                ${project.status}
+            </td>
+            <td>
+                <progress value="${project.progress}"
+                          max="100"></progress>
+                ${project.progress}%
+            </td>
+            <td>
+                <button onclick="updateProgress(${index})">
+                    Update
+                </button>
+
+                <button onclick="deleteProject(${index})">
+                    Delete
+                </button>
+            </td>
+        </tr>`;
+    });
+}
+
+function updateProgress(index) {
+    let value = prompt(
+        "Enter new progress (0-100):",
+        projects[index].progress
+    );
+
+    value = parseInt(value);
+
+    if (!isNaN(value) && value >= 0 && value <= 100) {
+        projects[index].progress = value;
+
+        if (value === 100) {
+            projects[index].status = "Completed";
+        } else if (value > 0) {
+            projects[index].status = "In Progress";
+        }
+
+        saveProjects();
+        displayProjects();
+    }
+}
+
+function deleteProject(index) {
+    if (confirm("Delete project?")) {
+        projects.splice(index, 1);
+        saveProjects();
+        displayProjects();
+    }
+}
+
+displayProjects();
+</script>
+
+</body>
+</html>
