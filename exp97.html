@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: #eaeaea;
+        }
+
+        .present {
+            color: green;
+            font-weight: bold;
+        }
+
+        .absent {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Attendance Management System</h2>
+
+    <input type="text" id="studentName" placeholder="Student Name">
+    <button onclick="addStudent()">Add Student</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Student Name</th>
+                <th>Status</th>
+                <th>Attendance</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="studentTable"></tbody>
+    </table>
+</div>
+
+<script>
+let students =
+JSON.parse(localStorage.getItem("students")) || [];
+
+function saveStudents() {
+    localStorage.setItem(
+        "students",
+        JSON.stringify(students)
+    );
+}
+
+function addStudent() {
+    const name =
+        document.getElementById("studentName")
+        .value.trim();
+
+    if (!name) {
+        alert("Enter student name");
+        return;
+    }
+
+    students.push({
+        id: Date.now(),
+        name: name,
+        status: "Absent"
+    });
+
+    saveStudents();
+    displayStudents();
+
+    document.getElementById("studentName").value = "";
+}
+
+function displayStudents() {
+    const table =
+        document.getElementById("studentTable");
+
+    table.innerHTML = "";
+
+    students.forEach((student, index) => {
+
+        const statusClass =
+            student.status === "Present"
+            ? "present"
+            : "absent";
+
+        table.innerHTML += `
+        <tr>
+            <td>${student.id}</td>
+            <td>${student.name}</td>
+            <td class="${statusClass}">
+                ${student.status}
+            </td>
+            <td>
+                <button onclick="markPresent(${index})">
+                    Present
+                </button>
+                <button onclick="markAbsent(${index})">
+                    Absent
+                </button>
+            </td>
+            <td>
+                <button onclick="deleteStudent(${index})">
+                    Delete
+                </button>
+            </td>
+        </tr>`;
+    });
+}
+
+function markPresent(index) {
+    students[index].status = "Present";
+    saveStudents();
+    displayStudents();
+}
+
+function markAbsent(index) {
+    students[index].status = "Absent";
+    saveStudents();
+    displayStudents();
+}
+
+function deleteStudent(index) {
+    if (confirm("Delete this student?")) {
+        students.splice(index, 1);
+        saveStudents();
+        displayStudents();
+    }
+}
+
+displayStudents();
+</script>
+
+</body>
+</html>
