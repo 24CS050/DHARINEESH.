@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cloud Storage Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input, button {
+            margin: 5px;
+            padding: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: #f0f0f0;
+        }
+
+        .delete-btn {
+            background: red;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Cloud Storage Application</h2>
+
+    <input type="file" id="fileInput">
+    <button onclick="uploadFile()">Upload File</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>File Name</th>
+                <th>Size (KB)</th>
+                <th>Download</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody id="fileTable"></tbody>
+    </table>
+</div>
+
+<script>
+let files = JSON.parse(localStorage.getItem("cloudFiles")) || [];
+
+function saveFiles() {
+    localStorage.setItem("cloudFiles", JSON.stringify(files));
+}
+
+function uploadFile() {
+    const input = document.getElementById("fileInput");
+
+    if (input.files.length === 0) {
+        alert("Please select a file.");
+        return;
+    }
+
+    const file = input.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+        files.push({
+            name: file.name,
+            size: (file.size / 1024).toFixed(2),
+            data: e.target.result
+        });
+
+        saveFiles();
+        displayFiles();
+        input.value = "";
+    };
+
+    reader.readAsDataURL(file);
+}
+
+function displayFiles() {
+    const table = document.getElementById("fileTable");
+    table.innerHTML = "";
+
+    files.forEach((file, index) => {
+        table.innerHTML += `
+        <tr>
+            <td>${file.name}</td>
+            <td>${file.size}</td>
+            <td>
+                <a href="${file.data}"
+                   download="${file.name}">
+                   Download
+                </a>
+            </td>
+            <td>
+                <button class="delete-btn"
+                    onclick="deleteFile(${index})">
+                    Delete
+                </button>
+            </td>
+        </tr>`;
+    });
+}
+
+function deleteFile(index) {
+    if (confirm("Delete this file?")) {
+        files.splice(index, 1);
+        saveFiles();
+        displayFiles();
+    }
+}
+
+displayFiles();
+</script>
+
+</body>
+</html>
