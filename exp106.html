@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Business Analytics Dashboard</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f6f9;
+            margin:20px;
+        }
+
+        .container{
+            max-width:1000px;
+            margin:auto;
+        }
+
+        h1{
+            text-align:center;
+        }
+
+        .cards{
+            display:flex;
+            gap:15px;
+            margin-bottom:20px;
+        }
+
+        .card{
+            flex:1;
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            text-align:center;
+            box-shadow:0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .form-section{
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            margin-bottom:20px;
+        }
+
+        input, select, button{
+            padding:10px;
+            margin:5px;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            background:white;
+        }
+
+        th, td{
+            border:1px solid #ddd;
+            padding:10px;
+            text-align:center;
+        }
+
+        th{
+            background:#eee;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Business Analytics Dashboard</h1>
+
+    <div class="cards">
+        <div class="card">
+            <h3>Total Sales</h3>
+            <p id="sales">₹0</p>
+        </div>
+
+        <div class="card">
+            <h3>Total Expenses</h3>
+            <p id="expenses">₹0</p>
+        </div>
+
+        <div class="card">
+            <h3>Profit</h3>
+            <p id="profit">₹0</p>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <input type="text" id="description"
+               placeholder="Description">
+
+        <input type="number" id="amount"
+               placeholder="Amount">
+
+        <select id="type">
+            <option value="Sale">Sale</option>
+            <option value="Expense">Expense</option>
+        </select>
+
+        <button onclick="addRecord()">
+            Add Record
+        </button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Type</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="recordTable"></tbody>
+    </table>
+</div>
+
+<script>
+let records =
+JSON.parse(localStorage.getItem("businessRecords")) || [];
+
+function saveRecords(){
+    localStorage.setItem(
+        "businessRecords",
+        JSON.stringify(records)
+    );
+}
+
+function addRecord(){
+    const description =
+    document.getElementById("description").value.trim();
+
+    const amount =
+    parseFloat(document.getElementById("amount").value);
+
+    const type =
+    document.getElementById("type").value;
+
+    if(!description || isNaN(amount) || amount <= 0){
+        alert("Enter valid details");
+        return;
+    }
+
+    records.push({
+        description,
+        amount,
+        type
+    });
+
+    saveRecords();
+    updateDashboard();
+
+    document.getElementById("description").value="";
+    document.getElementById("amount").value="";
+}
+
+function updateDashboard(){
+    let sales = 0;
+    let expenses = 0;
+
+    records.forEach(record=>{
+        if(record.type==="Sale"){
+            sales += record.amount;
+        }else{
+            expenses += record.amount;
+        }
+    });
+
+    document.getElementById("sales").innerText =
+    "₹" + sales.toFixed(2);
+
+    document.getElementById("expenses").innerText =
+    "₹" + expenses.toFixed(2);
+
+    document.getElementById("profit").innerText =
+    "₹" + (sales-expenses).toFixed(2);
+
+    displayRecords();
+}
+
+function displayRecords(){
+    const table =
+    document.getElementById("recordTable");
+
+    table.innerHTML="";
+
+    records.forEach((record,index)=>{
+        table.innerHTML += `
+        <tr>
+            <td>${record.description}</td>
+            <td>₹${record.amount}</td>
+            <td>${record.type}</td>
+            <td>
+                <button onclick="deleteRecord(${index})">
+                    Delete
+                </button>
+            </td>
+        </tr>`;
+    });
+}
+
+function deleteRecord(index){
+    if(confirm("Delete record?")){
+        records.splice(index,1);
+        saveRecords();
+        updateDashboard();
+    }
+}
+
+updateDashboard();
+</script>
+
+</body>
+</html>
