@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ERP Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        input {
+            padding: 10px;
+            margin: 5px;
+            width: 28%;
+        }
+
+        button {
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background: #eaeaea;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .delete-btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>ERP Application</h1>
+
+    <input type="text" id="employeeName" placeholder="Employee Name">
+    <input type="text" id="department" placeholder="Department">
+    <input type="number" id="salary" placeholder="Salary">
+    <button onclick="addEmployee()">Add Employee</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Employee Name</th>
+                <th>Department</th>
+                <th>Salary</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="employeeTable"></tbody>
+    </table>
+</div>
+
+<script>
+let employees = JSON.parse(localStorage.getItem("employees")) || [];
+
+function saveEmployees() {
+    localStorage.setItem("employees", JSON.stringify(employees));
+}
+
+function displayEmployees() {
+    const table = document.getElementById("employeeTable");
+    table.innerHTML = "";
+
+    employees.forEach((employee, index) => {
+        table.innerHTML += `
+            <tr>
+                <td>${employee.id}</td>
+                <td>${employee.name}</td>
+                <td>${employee.department}</td>
+                <td>₹${employee.salary}</td>
+                <td>
+                    <button class="delete-btn"
+                        onclick="deleteEmployee(${index})">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+}
+
+function addEmployee() {
+    const name = document.getElementById("employeeName").value.trim();
+    const department = document.getElementById("department").value.trim();
+    const salary = document.getElementById("salary").value.trim();
+
+    if (!name || !department || !salary) {
+        alert("Please fill all fields.");
+        return;
+    }
+
+    employees.push({
+        id: Date.now(),
+        name: name,
+        department: department,
+        salary: salary
+    });
+
+    saveEmployees();
+    displayEmployees();
+
+    document.getElementById("employeeName").value = "";
+    document.getElementById("department").value = "";
+    document.getElementById("salary").value = "";
+}
+
+function deleteEmployee(index) {
+    employees.splice(index, 1);
+    saveEmployees();
+    displayEmployees();
+}
+
+displayEmployees();
+</script>
+
+</body>
+</html>
