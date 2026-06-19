@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Learning Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .course {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+            background: #fafafa;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Learning Management System</h1>
+
+    <input type="text" id="courseName" placeholder="Course Name">
+    <textarea id="courseDescription" placeholder="Course Description"></textarea>
+    <button onclick="addCourse()">Add Course</button>
+
+    <h2>Available Courses</h2>
+    <div id="courseList"></div>
+</div>
+
+<script>
+let courses = JSON.parse(localStorage.getItem("courses")) || [];
+
+function saveCourses() {
+    localStorage.setItem("courses", JSON.stringify(courses));
+}
+
+function displayCourses() {
+    const courseList = document.getElementById("courseList");
+    courseList.innerHTML = "";
+
+    courses.forEach((course, index) => {
+        courseList.innerHTML += `
+            <div class="course">
+                <h3>${course.name}</h3>
+                <p>${course.description}</p>
+                <button onclick="deleteCourse(${index})">
+                    Delete Course
+                </button>
+            </div>
+        `;
+    });
+}
+
+function addCourse() {
+    const name = document.getElementById("courseName").value.trim();
+    const description = document.getElementById("courseDescription").value.trim();
+
+    if (name === "" || description === "") {
+        alert("Please enter all fields.");
+        return;
+    }
+
+    courses.push({
+        name: name,
+        description: description
+    });
+
+    saveCourses();
+    displayCourses();
+
+    document.getElementById("courseName").value = "";
+    document.getElementById("courseDescription").value = "";
+}
+
+function deleteCourse(index) {
+    courses.splice(index, 1);
+    saveCourses();
+    displayCourses();
+}
+
+displayCourses();
+</script>
+
+</body>
+</html>
