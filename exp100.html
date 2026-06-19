@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Food Delivery Platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0a79ff;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: rgb(10, 43, 193);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .food-item {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #1cea09;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: #4003e8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Food Delivery Platform</h2>
+
+    <h3>Menu</h3>
+
+    <div class="food-item">
+        <strong>Pizza</strong> - ₹250
+        <button onclick="addToCart('Pizza',250)">
+            Add to Cart
+        </button>
+    </div>
+
+    <div class="food-item">
+        <strong>Burger</strong> - ₹120
+        <button onclick="addToCart('Burger',120)">
+            Add to Cart
+        </button>
+    </div>
+
+    <div class="food-item">
+        <strong>Sandwich</strong> - ₹90
+        <button onclick="addToCart('Sandwich',90)">
+            Add to Cart
+        </button>
+    </div>
+
+    <h3>Cart</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Food Item</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody id="cartTable"></tbody>
+    </table>
+
+    <h3 id="totalAmount">Total: ₹0</h3>
+
+    <button onclick="placeOrder()">Place Order</button>
+
+    <h3>Order History</h3>
+
+    <ul id="orderHistory"></ul>
+</div>
+
+<script>
+let cart =
+JSON.parse(localStorage.getItem("cart")) || [];
+
+let orders =
+JSON.parse(localStorage.getItem("orders")) || [];
+
+function saveData() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem("orders", JSON.stringify(orders));
+}
+
+function addToCart(item, price) {
+    cart.push({ item, price });
+    saveData();
+    displayCart();
+}
+
+function displayCart() {
+    const table =
+        document.getElementById("cartTable");
+
+    table.innerHTML = "";
+
+    let total = 0;
+
+    cart.forEach(food => {
+        total += food.price;
+
+        table.innerHTML += `
+        <tr>
+            <td>${food.item}</td>
+            <td>₹${food.price}</td>
+        </tr>`;
+    });
+
+    document.getElementById("totalAmount")
+        .innerText = "Total: ₹" + total;
+}
+
+function placeOrder() {
+    if (cart.length === 0) {
+        alert("Cart is empty");
+        return;
+    }
+
+    orders.push({
+        date: new Date().toLocaleString(),
+        items: [...cart]
+    });
+
+    cart = [];
+    saveData();
+    displayCart();
+    displayOrders();
+
+    alert("Order placed successfully!");
+}
+
+function displayOrders() {
+    const history =
+        document.getElementById("orderHistory");
+
+    history.innerHTML = "";
+
+    orders.forEach(order => {
+        history.innerHTML += `
+        <li>
+            Order on ${order.date}
+            (${order.items.length} item(s))
+        </li>`;
+    });
+}
+
+displayCart();
+displayOrders();
+</script>
+
+</body>
+</html>
