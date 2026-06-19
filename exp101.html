@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Social Media Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #21ef02;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: rgb(132, 9, 233);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        textarea {
+            width: 100%;
+            height: 80px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 8px 12px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .post {
+            border: 1px solid #0feb34;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+            background: #0e8bf1;
+        }
+
+        .time {
+            color: rgb(232, 6, 183);
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Social Media Application</h2>
+
+    <textarea id="postText" placeholder="What's on your mind?"></textarea>
+    <button onclick="createPost()">Post</button>
+
+    <div id="posts"></div>
+</div>
+
+<script>
+let posts = JSON.parse(localStorage.getItem("posts")) || [];
+
+function savePosts() {
+    localStorage.setItem("posts", JSON.stringify(posts));
+}
+
+function createPost() {
+    const text = document.getElementById("postText").value.trim();
+
+    if (!text) {
+        alert("Please enter a post.");
+        return;
+    }
+
+    posts.unshift({
+        id: Date.now(),
+        text: text,
+        likes: 0,
+        date: new Date().toLocaleString()
+    });
+
+    savePosts();
+    displayPosts();
+
+    document.getElementById("postText").value = "";
+}
+
+function displayPosts() {
+    const postContainer = document.getElementById("posts");
+    postContainer.innerHTML = "";
+
+    posts.forEach((post, index) => {
+        postContainer.innerHTML += `
+            <div class="post">
+                <p>${post.text}</p>
+                <div class="time">${post.date}</div>
+                <br>
+                <button onclick="likePost(${index})">
+                    ❤️ Like (${post.likes})
+                </button>
+                <button onclick="deletePost(${index})">
+                    Delete
+                </button>
+            </div>
+        `;
+    });
+}
+
+function likePost(index) {
+    posts[index].likes++;
+    savePosts();
+    displayPosts();
+}
+
+function deletePost(index) {
+    if (confirm("Delete this post?")) {
+        posts.splice(index, 1);
+        savePosts();
+        displayPosts();
+    }
+}
+
+displayPosts();
+</script>
+
+</body>
+</html>
