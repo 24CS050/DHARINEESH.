@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hotel Booking Application</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f4f4;
+            margin:20px;
+        }
+
+        .container{
+            max-width:900px;
+            margin:auto;
+            background:white;
+            padding:20px;
+            border-radius:10px;
+        }
+
+        h2{
+            text-align:center;
+        }
+
+        input, select, button{
+            padding:10px;
+            margin:5px;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
+        }
+
+        th, td{
+            border:1px solid #ccc;
+            padding:10px;
+            text-align:center;
+        }
+
+        th{
+            background:#eaeaea;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Hotel Booking Application</h2>
+
+    <input type="text" id="guestName" placeholder="Guest Name">
+    
+    <select id="roomType">
+        <option value="">Select Room Type</option>
+        <option>Single Room</option>
+        <option>Double Room</option>
+        <option>Suite</option>
+    </select>
+
+    <input type="date" id="checkIn">
+    <input type="date" id="checkOut">
+
+    <button onclick="bookRoom()">Book Room</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Booking ID</th>
+                <th>Guest Name</th>
+                <th>Room Type</th>
+                <th>Check-In</th>
+                <th>Check-Out</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="bookingTable"></tbody>
+    </table>
+</div>
+
+<script>
+let bookings =
+JSON.parse(localStorage.getItem("hotelBookings")) || [];
+
+function saveBookings() {
+    localStorage.setItem(
+        "hotelBookings",
+        JSON.stringify(bookings)
+    );
+}
+
+function bookRoom() {
+    const guestName =
+        document.getElementById("guestName").value.trim();
+
+    const roomType =
+        document.getElementById("roomType").value;
+
+    const checkIn =
+        document.getElementById("checkIn").value;
+
+    const checkOut =
+        document.getElementById("checkOut").value;
+
+    if (!guestName || !roomType || !checkIn || !checkOut) {
+        alert("Please fill all fields");
+        return;
+    }
+
+    bookings.push({
+        id: Date.now(),
+        guestName,
+        roomType,
+        checkIn,
+        checkOut
+    });
+
+    saveBookings();
+    displayBookings();
+
+    document.getElementById("guestName").value = "";
+    document.getElementById("roomType").value = "";
+    document.getElementById("checkIn").value = "";
+    document.getElementById("checkOut").value = "";
+}
+
+function displayBookings() {
+    const table =
+        document.getElementById("bookingTable");
+
+    table.innerHTML = "";
+
+    bookings.forEach((booking, index) => {
+        table.innerHTML += `
+        <tr>
+            <td>${booking.id}</td>
+            <td>${booking.guestName}</td>
+            <td>${booking.roomType}</td>
+            <td>${booking.checkIn}</td>
+            <td>${booking.checkOut}</td>
+            <td>
+                <button onclick="cancelBooking(${index})">
+                    Cancel
+                </button>
+            </td>
+        </tr>`;
+    });
+}
+
+function cancelBooking(index) {
+    if (confirm("Cancel this booking?")) {
+        bookings.splice(index, 1);
+        saveBookings();
+        displayBookings();
+    }
+}
+
+displayBookings();
+</script>
+
+</body>
+</html>
