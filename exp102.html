@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Healthcare Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #89e204;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: rgb(214, 4, 4);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input, select, button {
+            padding: 10px;
+            margin: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #02e154;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: #3b06db;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Healthcare Management System</h2>
+
+    <input type="text" id="patientName" placeholder="Patient Name">
+    <input type="number" id="patientAge" placeholder="Age">
+
+    <select id="doctor">
+        <option value="">Select Doctor</option>
+        <option>Dr. Smith</option>
+        <option>Dr. Johnson</option>
+        <option>Dr. Williams</option>
+    </select>
+
+    <input type="date" id="appointmentDate">
+
+    <button onclick="addPatient()">Book Appointment</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Patient Name</th>
+                <th>Age</th>
+                <th>Doctor</th>
+                <th>Appointment Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="patientTable"></tbody>
+    </table>
+</div>
+
+<script>
+let patients =
+JSON.parse(localStorage.getItem("patients")) || [];
+
+function savePatients() {
+    localStorage.setItem(
+        "patients",
+        JSON.stringify(patients)
+    );
+}
+
+function addPatient() {
+    const name =
+        document.getElementById("patientName").value.trim();
+
+    const age =
+        document.getElementById("patientAge").value;
+
+    const doctor =
+        document.getElementById("doctor").value;
+
+    const date =
+        document.getElementById("appointmentDate").value;
+
+    if (!name || !age || !doctor || !date) {
+        alert("Please fill all fields.");
+        return;
+    }
+
+    patients.push({
+        id: Date.now(),
+        name,
+        age,
+        doctor,
+        date
+    });
+
+    savePatients();
+    displayPatients();
+
+    document.getElementById("patientName").value = "";
+    document.getElementById("patientAge").value = "";
+    document.getElementById("doctor").value = "";
+    document.getElementById("appointmentDate").value = "";
+}
+
+function displayPatients() {
+    const table =
+        document.getElementById("patientTable");
+
+    table.innerHTML = "";
+
+    patients.forEach((patient, index) => {
+        table.innerHTML += `
+        <tr>
+            <td>${patient.id}</td>
+            <td>${patient.name}</td>
+            <td>${patient.age}</td>
+            <td>${patient.doctor}</td>
+            <td>${patient.date}</td>
+            <td>
+                <button onclick="deletePatient(${index})">
+                    Delete
+                </button>
+            </td>
+        </tr>`;
+    });
+}
+
+function deletePatient(index) {
+    if (confirm("Delete this record?")) {
+        patients.splice(index, 1);
+        savePatients();
+        displayPatients();
+    }
+}
+
+displayPatients();
+</script>
+
+</body>
+</html>
