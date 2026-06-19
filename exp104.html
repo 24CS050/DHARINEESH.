@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FinTech Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .cards {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .form-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        input, select, button {
+            padding: 10px;
+            margin: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgb(233, 125, 3);
+        }
+
+        th, td {
+            border: 1px solid #0de209;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: #1a04e0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>FinTech Dashboard</h1>
+
+    <div class="cards">
+        <div class="card">
+            <h3>Total Income</h3>
+            <p id="income">₹0</p>
+        </div>
+
+        <div class="card">
+            <h3>Total Expense</h3>
+            <p id="expense">₹0</p>
+        </div>
+
+        <div class="card">
+            <h3>Current Balance</h3>
+            <p id="balance">₹0</p>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <input type="text" id="description" placeholder="Description">
+
+        <input type="number" id="amount" placeholder="Amount">
+
+        <select id="type">
+            <option value="Income">Income</option>
+            <option value="Expense">Expense</option>
+        </select>
+
+        <button onclick="addTransaction()">
+            Add Transaction
+        </button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Amount (₹)</th>
+                <th>Type</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="transactionTable"></tbody>
+    </table>
+</div>
+
+<script>
+let transactions =
+JSON.parse(localStorage.getItem("transactions")) || [];
+
+function saveData() {
+    localStorage.setItem(
+        "transactions",
+        JSON.stringify(transactions)
+    );
+}
+
+function addTransaction() {
+    const description =
+        document.getElementById("description").value.trim();
+
+    const amount =
+        parseFloat(document.getElementById("amount").value);
+
+    const type =
+        document.getElementById("type").value;
+
+    if (!description || isNaN(amount) || amount <= 0) {
+        alert("Enter valid details");
+        return;
+    }
+
+    transactions.push({
+        id: Date.now(),
+        description,
+        amount,
+        type
+    });
+
+    saveData();
+    updateDashboard();
+
+    document.getElementById("description").value = "";
+    document.getElementById("amount").value = "";
+}
+
+function updateDashboard() {
+    let income = 0;
+    let expense = 0;
+
+    transactions.forEach(t => {
+        if (t.type === "Income") {
+            income += t.amount;
+        } else {
+            expense += t.amount;
+        }
+    });
+
+    document.getElementById("income").innerText =
+        "₹" + income.toFixed(2);
+
+    document.getElementById("expense").innerText =
+        "₹" + expense.toFixed(2);
+
+    document.getElementById("balance").innerText =
+        "₹" + (income - expense).toFixed(2);
+
+    displayTransactions();
+}
+
+function displayTransactions() {
+    const table =
+        document.getElementById("transactionTable");
+
+    table.innerHTML = "";
+
+    transactions.forEach((t, index) => {
+        table.innerHTML += `
+        <tr>
+            <td>${t.description}</td>
+            <td>₹${t.amount}</td>
+            <td>${t.type}</td>
+            <td>
+                <button onclick="deleteTransaction(${index})">
+                    Delete
+                </button>
+            </td>
+        </tr>`;
+    });
+}
+
+function deleteTransaction(index) {
+    if (confirm("Delete transaction?")) {
+        transactions.splice(index, 1);
+        saveData();
+        updateDashboard();
+    }
+}
+
+updateDashboard();
+</script>
+
+</body>
+</html>
