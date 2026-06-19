@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Environment Variables Demo</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 700px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #ccc;
+    }
+
+    input {
+        width: 80%;
+        padding: 10px;
+        margin: 10px 0;
+    }
+
+    button {
+        padding: 10px 20px;
+        background: #2196F3;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #output {
+        margin-top: 20px;
+        font-weight: bold;
+        color: green;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Environment Variables Demo</h1>
+
+    <input type="text" id="apiUrl" placeholder="Enter API URL">
+    <br>
+
+    <input type="text" id="appName" placeholder="Enter Application Name">
+    <br>
+
+    <button onclick="saveEnv()">Save Variables</button>
+
+    <p id="output"></p>
+</div>
+
+<script>
+function saveEnv() {
+    const apiUrl = document.getElementById("apiUrl").value;
+    const appName = document.getElementById("appName").value;
+
+    localStorage.setItem("API_URL", apiUrl);
+    localStorage.setItem("APP_NAME", appName);
+
+    document.getElementById("output").innerHTML =
+        "✅ Environment Variables Saved Successfully!";
+}
+</script>
+
+</body>
+</html>
