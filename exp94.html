@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CRM Software</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f4f4f4;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        input {
+            width: 30%;
+            padding: 10px;
+            margin: 5px;
+        }
+
+        button {
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background: #eaeaea;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .delete-btn {
+            background: red;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>CRM Software</h1>
+
+    <input type="text" id="customerName" placeholder="Customer Name">
+    <input type="email" id="customerEmail" placeholder="Customer Email">
+    <input type="text" id="customerPhone" placeholder="Phone Number">
+    <button onclick="addCustomer()">Add Customer</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="customerTable"></tbody>
+    </table>
+</div>
+
+<script>
+let customers = JSON.parse(localStorage.getItem("customers")) || [];
+
+function saveCustomers() {
+    localStorage.setItem("customers", JSON.stringify(customers));
+}
+
+function displayCustomers() {
+    const table = document.getElementById("customerTable");
+    table.innerHTML = "";
+
+    customers.forEach((customer, index) => {
+        table.innerHTML += `
+            <tr>
+                <td>${customer.id}</td>
+                <td>${customer.name}</td>
+                <td>${customer.email}</td>
+                <td>${customer.phone}</td>
+                <td>
+                    <button class="delete-btn"
+                        onclick="deleteCustomer(${index})">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+}
+
+function addCustomer() {
+    const name = document.getElementById("customerName").value.trim();
+    const email = document.getElementById("customerEmail").value.trim();
+    const phone = document.getElementById("customerPhone").value.trim();
+
+    if (!name || !email || !phone) {
+        alert("Please fill all fields");
+        return;
+    }
+
+    customers.push({
+        id: Date.now(),
+        name: name,
+        email: email,
+        phone: phone
+    });
+
+    saveCustomers();
+    displayCustomers();
+
+    document.getElementById("customerName").value = "";
+    document.getElementById("customerEmail").value = "";
+    document.getElementById("customerPhone").value = "";
+}
+
+function deleteCustomer(index) {
+    customers.splice(index, 1);
+    saveCustomers();
+    displayCustomers();
+}
+
+displayCustomers();
+</script>
+
+</body>
+</html>
