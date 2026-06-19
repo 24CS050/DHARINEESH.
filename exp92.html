@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Internship Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input, button {
+            padding: 8px;
+            margin: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background: #f2f2f2;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Internship Management System</h2>
+
+<input type="text" id="name" placeholder="Intern Name">
+<input type="text" id="department" placeholder="Department">
+<input type="text" id="duration" placeholder="Duration (Months)">
+<button onclick="addIntern()">Add Intern</button>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Duration</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="internTable"></tbody>
+</table>
+
+<script>
+let interns = JSON.parse(localStorage.getItem("interns")) || [];
+
+function saveData() {
+    localStorage.setItem("interns", JSON.stringify(interns));
+}
+
+function displayInterns() {
+    const table = document.getElementById("internTable");
+    table.innerHTML = "";
+
+    interns.forEach((intern, index) => {
+        table.innerHTML += `
+            <tr>
+                <td>${intern.id}</td>
+                <td>${intern.name}</td>
+                <td>${intern.department}</td>
+                <td>${intern.duration}</td>
+                <td>
+                    <button onclick="deleteIntern(${index})">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+}
+
+function addIntern() {
+    const name = document.getElementById("name").value.trim();
+    const department = document.getElementById("department").value.trim();
+    const duration = document.getElementById("duration").value.trim();
+
+    if (name === "" || department === "" || duration === "") {
+        alert("Please fill all fields");
+        return;
+    }
+
+    interns.push({
+        id: Date.now(),
+        name: name,
+        department: department,
+        duration: duration + " Month(s)"
+    });
+
+    saveData();
+    displayInterns();
+
+    document.getElementById("name").value = "";
+    document.getElementById("department").value = "";
+    document.getElementById("duration").value = "";
+}
+
+function deleteIntern(index) {
+    interns.splice(index, 1);
+    saveData();
+    displayInterns();
+}
+
+displayInterns();
+</script>
+
+</body>
+</html>
