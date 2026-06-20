@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Employee Management System</title>
+
+<style>
+body{
+    font-family:Arial;
+    background:#f4f4f4;
+    padding:20px;
+}
+
+.container{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    max-width:700px;
+    margin:auto;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin:5px 0;
+}
+
+button{
+    padding:10px 15px;
+    cursor:pointer;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+table,th,td{
+    border:1px solid black;
+}
+
+th,td{
+    padding:10px;
+    text-align:left;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Employee Management System</h2>
+
+<input type="text" id="name" placeholder="Employee Name">
+<input type="email" id="email" placeholder="Email">
+<input type="text" id="salary" placeholder="Salary">
+
+<button onclick="addEmployee()">Add Employee</button>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Salary</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="employeeTable">
+</tbody>
+
+</table>
+
+</div>
+
+<script>
+
+let employees = [];
+
+function addEmployee(){
+
+let name = document.getElementById("name").value;
+let email = document.getElementById("email").value;
+let salary = document.getElementById("salary").value;
+
+if(name==="" || email==="" || salary===""){
+    alert("Fill all fields");
+    return;
+}
+
+employees.push({
+    name:name,
+    email:email,
+    salary:salary
+});
+
+displayEmployees();
+
+document.getElementById("name").value="";
+document.getElementById("email").value="";
+document.getElementById("salary").value="";
+}
+
+function displayEmployees(){
+
+let table = document.getElementById("employeeTable");
+
+table.innerHTML="";
+
+employees.forEach((emp,index)=>{
+
+table.innerHTML += `
+<tr>
+<td>${emp.name}</td>
+<td>${emp.email}</td>
+<td>${emp.salary}</td>
+<td>
+<button onclick="deleteEmployee(${index})">
+Delete
+</button>
+</td>
+</tr>
+`;
+
+});
+
+}
+
+function deleteEmployee(index){
+employees.splice(index,1);
+displayEmployees();
+}
+
+</script>
+
+</body>
+</html>
