@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enterprise Employee Management System Documentation</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    margin:0;
+    background:#f4f6f9;
+    line-height:1.6;
+}
+
+header{
+    background:#1f2937;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    margin-top:20px;
+    margin-bottom:20px;
+    border-radius:8px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+h1,h2,h3{
+    color:#1f2937;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:10px;
+}
+
+table,th,td{
+    border:1px solid #ddd;
+}
+
+th{
+    background:#2563eb;
+    color:white;
+}
+
+th,td{
+    padding:10px;
+    text-align:left;
+}
+
+code{
+    background:#eee;
+    padding:2px 5px;
+    border-radius:3px;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Enterprise Employee Management System</h1>
+    <p>Project Documentation</p>
+</header>
+
+<div class="container">
+
+<h2>1. Project Overview</h2>
+<p>
+The Enterprise Employee Management System is a web-based solution
+designed to manage employee records, attendance, payroll,
+departments, and reports.
+</p>
+
+<h2>2. Objectives</h2>
+<ul>
+<li>Automate HR operations</li>
+<li>Manage employee records efficiently</li>
+<li>Track attendance</li>
+<li>Generate payroll reports</li>
+<li>Improve organizational productivity</li>
+</ul>
+
+<h2>3. Software Requirements</h2>
+
+<table>
+<tr>
+<th>Component</th>
+<th>Technology</th>
+</tr>
+
+<tr>
+<td>Frontend</td>
+<td>HTML, CSS, JavaScript</td>
+</tr>
+
+<tr>
+<td>Backend</td>
+<td>Node.js, Express.js</td>
+</tr>
+
+<tr>
+<td>Database</td>
+<td>MySQL</td>
+</tr>
+
+<tr>
+<td>Authentication</td>
+<td>JWT</td>
+</tr>
+</table>
+
+<h2>4. System Architecture</h2>
+
+<pre>
+User
+ ↓
+Frontend
+ ↓
+REST API
+ ↓
+Backend
+ ↓
+Database
+</pre>
+
+<h2>5. Functional Modules</h2>
+
+<h3>User Management</h3>
+<ul>
+<li>Registration</li>
+<li>Login</li>
+<li>Password Reset</li>
+<li>Role Management</li>
+</ul>
+
+<h3>Employee Management</h3>
+<ul>
+<li>Add Employee</li>
+<li>Edit Employee</li>
+<li>Delete Employee</li>
+<li>Search Employee</li>
+</ul>
+
+<h3>Attendance Management</h3>
+<ul>
+<li>Check In</li>
+<li>Check Out</li>
+<li>Attendance Reports</li>
+</ul>
+
+<h3>Payroll Management</h3>
+<ul>
+<li>Salary Processing</li>
+<li>Payslip Generation</li>
+<li>Bonus Calculation</li>
+<li>Tax Deduction</li>
+</ul>
+
+<h2>6. Database Design</h2>
+
+<pre>
+Users
+-----
+id
+name
+email
+password
+role
+
+Employees
+---------
+id
+name
+email
+department
+salary
+
+Attendance
+----------
+id
+employee_id
+checkin
+checkout
+</pre>
+
+<h2>7. API Endpoints</h2>
+
+<table>
+<tr>
+<th>Method</th>
+<th>Endpoint</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td>POST</td>
+<td>/api/login</td>
+<td>User Login</td>
+</tr>
+
+<tr>
+<td>GET</td>
+<td>/api/employees</td>
+<td>Get Employees</td>
+</tr>
+
+<tr>
+<td>POST</td>
+<td>/api/employees</td>
+<td>Add Employee</td>
+</tr>
+
+<tr>
+<td>PUT</td>
+<td>/api/employees/:id</td>
+<td>Update Employee</td>
+</tr>
+
+<tr>
+<td>DELETE</td>
+<td>/api/employees/:id</td>
+<td>Delete Employee</td>
+</tr>
+</table>
+
+<h2>8. Security Features</h2>
+<ul>
+<li>JWT Authentication</li>
+<li>Password Hashing</li>
+<li>Role-Based Access Control</li>
+<li>Input Validation</li>
+<li>HTTPS Support</li>
+</ul>
+
+<h2>9. Testing</h2>
+<ul>
+<li>Unit Testing</li>
+<li>Integration Testing</li>
+<li>API Testing</li>
+<li>User Acceptance Testing</li>
+</ul>
+
+<h2>10. Deployment</h2>
+
+<ol>
+<li>Install Node.js</li>
+<li>Install MySQL</li>
+<li>Create Database</li>
+<li>Run <code>npm install</code></li>
+<li>Run <code>npm start</code></li>
+</ol>
+
+<h2>11. Future Enhancements</h2>
+<ul>
+<li>Mobile App</li>
+<li>Cloud Deployment</li>
+<li>AI Analytics</li>
+<li>Biometric Attendance</li>
+<li>Email Notifications</li>
+</ul>
+
+<h2>12. Conclusion</h2>
+
+<p>
+This system provides a scalable, secure, and enterprise-level
+solution for managing employees, attendance, payroll, and reporting
+operations within an organization.
+</p>
+
+</div>
+
+</body>
+</html>
