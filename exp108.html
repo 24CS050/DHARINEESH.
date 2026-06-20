@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Manager</title>
+    <style>
+        body{
+            font-family:Arial;
+            max-width:700px;
+            margin:auto;
+            padding:20px;
+        }
+
+        input,button{
+            padding:10px;
+            margin:5px;
+        }
+
+        li{
+            margin:10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Task Manager</h1>
+
+<input type="text" id="taskInput" placeholder="Enter Task">
+<button onclick="addTask()">Add Task</button>
+
+<ul id="taskList"></ul>
+
+<script>
+let tasks=[];
+
+function addTask(){
+    const input=document.getElementById("taskInput");
+
+    if(input.value.trim()===""){
+        alert("Enter task");
+        return;
+    }
+
+    tasks.push(input.value);
+
+    renderTasks();
+    input.value="";
+}
+
+function renderTasks(){
+    const list=document.getElementById("taskList");
+    list.innerHTML="";
+
+    tasks.forEach((task,index)=>{
+        list.innerHTML += `
+            <li>
+                ${task}
+                <button onclick="deleteTask(${index})">
+                    Delete
+                </button>
+            </li>
+        `;
+    });
+}
+
+function deleteTask(index){
+    tasks.splice(index,1);
+    renderTasks();
+}
+</script>
+
+</body>
+</html>
